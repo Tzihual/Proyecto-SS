@@ -1,56 +1,88 @@
 body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f4f4;
-  }
-  
-  .login-container {
-    width: 350px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  header {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .input-group {
-    margin-bottom: 20px;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    background-color: #888;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #555;
-  }
-  
-  .toggle-password {
-    cursor: pointer;
-    float: right;
-    margin-top: -25px;
-    margin-right: 10px;
-  }
-  
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f4f4f4;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  align-items: flex-start; 
+}
+
+.imagen-logo{
+  width: 160px;
+  height: 50px;
+}
+
+.imagenes-login{
+  width: 30px;
+  height: 30px;
+}
+
+.gold-line {
+  width: 100%;
+  height: 2px;
+  background-color: #D4AF37;
+  margin-top: 10px;
+}
+
+.login-container {
+  width: 350px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+header {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #A19595;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-group img {
+  margin-right: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 70%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #888;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.toggle-password {
+  cursor: pointer;
+  float: right;
+  margin-top: -3px;
+  margin-left: 5px;
+}

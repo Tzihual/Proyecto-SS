@@ -2,22 +2,26 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Inicio de Sesión</title>
+  <title>sepen.com</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="login-container">
+  <div class="logo-container">
+    <img class="imagen-logo" src="imagenes/logo.png" alt="Logo">
+    <div class="gold-line"></div>
+  </div>
     <header>
       <h1>INICIO DE SESIÓN</h1>
     </header>
     <form action="#" method="POST" novalidate>
       <div class="input-group">
-        <label for="username"><img src="usuario.png" alt="User Icon"> Usuario</label>
-        <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" title="Solo letras y números" required>
+        <img class="imagenes-login" src="imagenes/usuario.png" alt="User Icon">
+        <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" title="Solo letras y números" required placeholder="Usuario">
       </div>
       <div class="input-group">
-        <label for="password"><img src="contrasena.png" alt="Lock Icon"> Contraseña</label>
-        <input type="password" id="password" name="password" required>
+        <img  class="imagenes-login" src="imagenes/contrasena.png" alt="Lock Icon">
+        <input type="password" id="password" name="password" required placeholder="Contraseña">
         <span class="toggle-password">Mostrar</span>
       </div>
       <button type="submit">Ingresar</button>
