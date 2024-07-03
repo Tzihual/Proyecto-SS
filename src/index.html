@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio de Sesión</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <header>
+      <h1>INICIO DE SESIÓN</h1>
+    </header>
+    <form action="#" method="POST" novalidate>
+      <div class="input-group">
+        <label for="username"><img src="user-icon.png" alt="User Icon"> Usuario</label>
+        <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" title="Solo letras y números" required>
+      </div>
+      <div class="input-group">
+        <label for="password"><img src="lock-icon.png" alt="Lock Icon"> Contraseña</label>
+        <input type="password" id="password" name="password" required>
+        <span class="toggle-password">Mostrar</span>
+      </div>
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
+
+  <script>
+    document.querySelector('.toggle-password').addEventListener('click', function (e) {
+      const passwordInput = document.querySelector('#password');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        e.target.textContent = 'Ocultar';
+      } else {
+        passwordInput.type = 'password';
+        e.target.textContent = 'Mostrar';
+      }
+    });
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+      if (!this.checkValidity()) {
+        e.preventDefault(); // Evitar el envío del formulario
+        alert('Por favor, verifica que todos los campos estén correctamente llenados.');
+      }
+    });
+  </script>
+</body>
+</html>
+
