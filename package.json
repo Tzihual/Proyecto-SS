@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "dev":"electron .",
+    "dev": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,6 +15,9 @@
     "standard": "^17.1.0"
   },
   "eslintConfig": {
-    "extends":"standard"
+    "extends": "standard"
+  },
+  "dependencies": {
+    "firebase": "^10.12.3"
   }
 }
