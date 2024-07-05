@@ -1,31 +1,33 @@
 // src/main.js
-const path = require('path')
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
 
-const { app, BrowserWindow } = require('electron')
-
-function createWindow () {
+function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'conexion.js'), // Asegúrate de que esta ruta es correcta
+      contextIsolation: true,
+      enableRemoteModule: false,
+      nodeIntegration: false,
     }
-  })
+  });
 
-  win.loadFile('src/index.html')
+  win.loadFile(path.join(__dirname, 'index.html')); // Verifica también esta ruta
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
+    createWindow();
   }
-})
+});
+
