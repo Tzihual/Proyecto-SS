@@ -1,23 +1,25 @@
 {
   "name": "proyecto-ss",
   "version": "1.0.0",
-  "description": "",
+  "description": "Electron application with MongoDB",
   "main": "src/main.js",
   "scripts": {
-    "dev": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron .",
+    "rebuild": "electron-rebuild -f -w mongodb"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "electron",
+    "mongodb",
+    "crud"
+  ],
+  "author": "proyecto",
   "license": "ISC",
   "devDependencies": {
     "electron": "^31.1.0",
-    "standard": "^17.1.0"
-  },
-  "eslintConfig": {
-    "extends": "standard"
+    "electron-rebuild": "^3.2.9"
   },
   "dependencies": {
-    "firebase": "^10.12.3"
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.8.0"
   }
 }

@@ -7,20 +7,20 @@
 </head>
 <body>
   <div class="login-container">
-  <div class="logo-container">
-    <img class="imagen-logo" src="imagenes/logo.png" alt="Logo">
-    <div class="gold-line"></div>
-  </div>
+    <div class="logo-container">
+      <img class="imagen-logo" src="imagenes/logo.png" alt="Logo">
+      <div class="gold-line"></div>
+    </div>
     <header>
       <h1>INICIO DE SESIÓN</h1>
     </header>
-    <form action="#" method="POST" novalidate>
+    <form id="loginForm" action="#" method="POST" novalidate>
       <div class="input-group">
         <img class="imagenes-login" src="imagenes/usuario.png" alt="User Icon">
         <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" title="Solo letras y números" required placeholder="Usuario">
       </div>
       <div class="input-group">
-        <img  class="imagenes-login" src="imagenes/contrasena.png" alt="Lock Icon">
+        <img class="imagenes-login" src="imagenes/contrasena.png" alt="Lock Icon">
         <input type="password" id="password" name="password" required placeholder="Contraseña">
         <span class="toggle-password">Mostrar</span>
       </div>
@@ -40,13 +40,22 @@
       }
     });
 
-    document.querySelector('form').addEventListener('submit', function(e) {
-      if (!this.checkValidity()) {
-        e.preventDefault(); // Evitar el envío del formulario
-        alert('Por favor, verifica que todos los campos estén correctamente llenados.');
+    document.querySelector('form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const usuarioValido = await window.electronAPI.validarUsuario(username, password);
+
+      if (usuarioValido) {
+        alert('Usuario autenticado exitosamente!');
+        // Aquí podrías redireccionar al usuario o cambiar el UI según el tipo de usuario.
+      } else {
+        alert('Usuario o contraseña incorrectos. Intente de nuevo.');
       }
     });
   </script>
 </body>
 </html>
+
 
