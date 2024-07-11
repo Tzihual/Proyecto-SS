@@ -15,7 +15,7 @@
   "author": "proyecto",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^31.1.0",
+    "electron": "^31.2.0",
     "electron-rebuild": "^3.2.9"
   },
   "dependencies": {

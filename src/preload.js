@@ -1,6 +1,33 @@
-// src/preload.js
+
 const { contextBridge } = require('electron');
-const connectDB = require('./conexion'); // Asegúrate de que la ruta sea correcta
+console.log('Cargando preload.js');
+ // Exposición de la API al mundo del renderizado
+
+try {
+    console.log("ENTRE PARA VERIFICAR AUTENTICACION");
+    const { validarUsuario } = require('./autenticacion');
+    console.log('Módulo autenticacion.js cargado correctamente.');
+    contextBridge.exposeInMainWorld('electronAPI', {
+         validarUsuario
+    });
+} catch (error) {
+    console.error('Error al cargar autenticacion.js:', error);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const replaceText = (selector, text) => {
+        const element = document.getElementById(selector);
+        if (element) element.innerText = text;
+    }
+
+    for (const type of ['chrome', 'node', 'electron']) {
+        replaceText(`${type}-version`, process.versions[type]);
+    }
+});
+
+/*
+const { contextBridge } = require('electron');
+const connectDB = require('./conexion.js'); // Asegúrate de que la ruta sea correcta
 
 async function validarUsuario(username, password) {
     try {
@@ -17,3 +44,4 @@ async function validarUsuario(username, password) {
 contextBridge.exposeInMainWorld('electronAPI', {
     validarUsuario
 });
+*/
