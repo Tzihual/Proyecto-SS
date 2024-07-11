@@ -8,10 +8,10 @@ function createWindow() {
         width: 1500,
         height: 1300,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'), 
-            contextIsolation: true,
+          //  preload: path.join(__dirname, 'preload.js'), 
+            contextIsolation: false,
             enableRemoteModule: false,
-            nodeIntegration: false
+            nodeIntegration: true
         }
     });
 

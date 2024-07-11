@@ -1,4 +1,4 @@
-
+/*
 const { contextBridge } = require('electron');
 console.log('Cargando preload.js');
  // Exposición de la API al mundo del renderizado
@@ -13,7 +13,7 @@ try {
 } catch (error) {
     console.error('Error al cargar autenticacion.js:', error);
 }
-
+*/
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
         const element = document.getElementById(selector);

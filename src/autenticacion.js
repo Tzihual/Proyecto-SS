@@ -4,7 +4,7 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const uri = process.env.MONGODB_URI2; // Asegúrate de tener esta variable en tu .env
+const uri = process.env.MONGODB_URI2;
 const client = new MongoClient(uri);
 console.log('Cargando autenticacion.js');
 async function validarUsuario(username, password) {
