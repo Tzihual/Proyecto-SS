@@ -1,23 +1,21 @@
 // src/registrarvacante.js
 document.addEventListener('DOMContentLoaded', function () {
   const { ipcRenderer } = window.require('electron');
-  
+
   const nivelEducativo = document.getElementById('nivel-educativo');
   const materiasSecundariaContainer = document.getElementById('materias-secundaria-container');
   const materiasSecundaria = document.getElementById('materias-secundaria');
 
   // Ocultar el combo de materias al inicio
   materiasSecundariaContainer.style.display = 'none';
-  materiasSecundaria.required = false;  // Initially not required
 
   nivelEducativo.addEventListener('change', function () {
     if (nivelEducativo.value === 'Secundaria') {
       materiasSecundariaContainer.style.display = 'block';
-      materiasSecundaria.required = true;
+      materiasSecundaria.setAttribute('required', 'required');
     } else {
       materiasSecundariaContainer.style.display = 'none';
-      materiasSecundaria.required = false;
-      materiasSecundaria.value = ''; // Clear the value when not needed
+      materiasSecundaria.removeAttribute('required');
     }
   });
 
@@ -55,9 +53,11 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Vacante registrada con éxito, ID:', docId);
       alert('Vacante registrada con éxito!');
       form.reset();
+      materiasSecundariaContainer.style.display = 'none';
     } catch (error) {
       console.error('Error al registrar la vacante:', error);
       alert('Error al registrar la vacante: ' + error.message);
     }
   });
 });
+
