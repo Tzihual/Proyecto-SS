@@ -1,6 +1,26 @@
 // src/registrarvacante.js
-
 document.addEventListener('DOMContentLoaded', function () {
+  const { ipcRenderer } = window.require('electron');
+  
+  const nivelEducativo = document.getElementById('nivel-educativo');
+  const materiasSecundariaContainer = document.getElementById('materias-secundaria-container');
+  const materiasSecundaria = document.getElementById('materias-secundaria');
+
+  // Ocultar el combo de materias al inicio
+  materiasSecundariaContainer.style.display = 'none';
+  materiasSecundaria.required = false;  // Initially not required
+
+  nivelEducativo.addEventListener('change', function () {
+    if (nivelEducativo.value === 'Secundaria') {
+      materiasSecundariaContainer.style.display = 'block';
+      materiasSecundaria.required = true;
+    } else {
+      materiasSecundariaContainer.style.display = 'none';
+      materiasSecundaria.required = false;
+      materiasSecundaria.value = ''; // Clear the value when not needed
+    }
+  });
+
   const form = document.querySelector('form');
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -23,12 +43,15 @@ document.addEventListener('DOMContentLoaded', function () {
       perfilRequerido: document.getElementById('perfil-requerido').value,
       turno: document.getElementById('turno').value,
       estatus: document.getElementById('estatus').value,
+      nivelEducativo: document.getElementById('nivel-educativo').value,
+      materiaSecundaria: materiasSecundariaContainer.style.display === 'none' ? null : materiasSecundaria.value,
+      zonaEconomica: document.getElementById('zona-economica').value,
       tipoContrato: document.querySelector('input[name="tipo-contrato"]:checked').value,
       observaciones: document.getElementById('observaciones').value
     };
 
     try {
-      const docId = await window.electronAPI.addVacancy(formData);
+      const docId = await ipcRenderer.invoke('add-vacancy', formData);
       console.log('Vacante registrada con éxito, ID:', docId);
       alert('Vacante registrada con éxito!');
       form.reset();
@@ -38,6 +61,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
-
-  

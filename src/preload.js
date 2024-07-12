@@ -14,6 +14,7 @@ try {
     console.error('Error al cargar autenticacion.js:', error);
 }
 */
+//src/preload.js
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
         const element = document.getElementById(selector);

@@ -1,5 +1,5 @@
 // src/main.js
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const connectDB = require('./conexion');
 
@@ -8,7 +8,6 @@ function createWindow() {
         width: 1500,
         height: 1300,
         webPreferences: {
-          //  preload: path.join(__dirname, 'preload.js'), 
             contextIsolation: false,
             enableRemoteModule: false,
             nodeIntegration: true
@@ -18,8 +17,8 @@ function createWindow() {
     win.loadFile(path.join(__dirname, 'index.html'));
     win.webContents.openDevTools();
 
-     // Conectar a MongoDB cuando la ventana esté lista
-     win.webContents.on('did-finish-load', async () => {
+    // Conectar a MongoDB cuando la ventana esté lista
+    win.webContents.on('did-finish-load', async () => {
         try {
             const db = await connectDB();
             console.log('Se conectó a MongoDB Atlas.');
@@ -27,7 +26,6 @@ function createWindow() {
             console.error('Error conectando a MongoDB Atlas:', error);
         }
     });
-    
 }
 
 app.whenReady().then(createWindow);
@@ -41,3 +39,15 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+ipcMain.handle('add-vacancy', async (event, formData) => {
+    try {
+        const db = await connectDB();
+        const result = await db.collection('vacante').insertOne(formData);
+        return result.insertedId;
+    } catch (error) {
+        console.error('Error al agregar la vacante:', error);
+        throw error;
+    }
+});
+
