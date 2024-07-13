@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Vacantes</title>
+  <link rel="stylesheet" href="estilolistavacante.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo-container">
+        <img src="imagenes/logo.png" alt="Logo">
+        <div class="gold-line"></div>
+      </div>
+      <div class="user-info">
+        <img src="imagenes/usuario.png" alt="Usuario">
+        <span>Administrador</span>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="registrarvacante.html">
+              <img src="imagenes/vacante-de-trabajo.png" alt="Vacantes">
+              <span>VACANTES</span>
+          </a>
+          </li>
+          <li>
+            <a href="listavacante.html">
+              <img src="imagenes/vacante-de-trabajo.png" alt="Lista de Vacantes">
+              <span>LISTA DE VACANTES</span>
+          </a>
+          </li>
+          <li>
+            <img src="imagenes/reporte.png" alt="Reportes">
+            <span>REPORTES</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="main-content">
+      <header>
+        <h1>LISTA DE VACANTES</h1>
+      </header>
+      <div class="form-container">
+        <h2>LISTA DE VACANTES</h2>
+        <input type="text" id="search-input" placeholder="Buscar vacante...">
+        <table id="vacantes-table">
+          <thead>
+            <tr>
+              <th>Clave Presupuestal</th>
+              <th>Clave del C.T</th>
+              <th>Municipio</th>
+              <th>Nombre de la escuela</th>
+              <th>Nivel Educativo</th>
+              <th>Tipo de contrato</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Vacantes se renderizarán aquí -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Edición -->
+  <div id="editModal" style="display:none;">
+    <h2>Editar Vacante</h2>
+    <form>
+      <input type="hidden" id="edit-id">
+      <div class="form-group">
+        <label for="edit-clave-presupuestal">Clave Presupuestal</label>
+        <input type="text" id="edit-clave-presupuestal" required>
+        <label for="edit-municipio">Municipio</label>
+        <input type="text" id="edit-municipio" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-clave-ct">Clave del C.T</label>
+        <input type="text" id="edit-clave-ct" required>
+        <label for="edit-localidad">Localidad</label>
+        <input type="text" id="edit-localidad" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-funcion">Función</label>
+        <input type="text" id="edit-funcion" required>
+        <label for="edit-fecha-inicio">Fecha Inicio</label>
+        <input type="date" id="edit-fecha-inicio" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-motivo">Motivo</label>
+        <input type="text" id="edit-motivo" required>
+        <label for="edit-fecha-fin">Fecha de Fin</label>
+        <input type="date" id="edit-fecha-fin" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-nombre-escuela">Nombre de la escuela</label>
+        <input type="text" id="edit-nombre-escuela" required>
+        <label for="edit-perfil-requerido">Perfil requerido</label>
+        <input type="text" id="edit-perfil-requerido" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-turno">Turno</label>
+        <input type="text" id="edit-turno" required>
+        <label for="edit-estatus">Estatus</label>
+        <input type="text" id="edit-estatus" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-nivel-educativo">Nivel Educativo</label>
+        <input type="text" id="edit-nivel-educativo" required>
+        <label for="edit-zona-economica">Zona Económica</label>
+        <input type="text" id="edit-zona-economica" required>
+      </div>
+      <div class="form-group full-width">
+        <label for="edit-observaciones">Observaciones</label>
+        <textarea id="edit-observaciones"></textarea>
+      </div>
+      <button type="submit" onclick="saveEdit()">Guardar</button>
+      <button type="button" onclick="closeEditModal()">Cancelar</button>
+    </form>
+  </div>
+
+  <script src="listavacante.js"></script>
+</body>
+</html>
