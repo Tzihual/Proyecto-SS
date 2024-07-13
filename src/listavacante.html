@@ -22,13 +22,13 @@
             <a href="registrarvacante.html">
               <img src="imagenes/vacante-de-trabajo.png" alt="Vacantes">
               <span>VACANTES</span>
-          </a>
+            </a>
           </li>
           <li>
             <a href="listavacante.html">
               <img src="imagenes/vacante-de-trabajo.png" alt="Lista de Vacantes">
               <span>LISTA DE VACANTES</span>
-          </a>
+            </a>
           </li>
           <li>
             <img src="imagenes/reporte.png" alt="Reportes">
@@ -63,12 +63,10 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Modal de Edición -->
   <div id="editModal" style="display:none;">
-    <h2>Editar Vacante</h2>
-    <form>
-      <input type="hidden" id="edit-id">
+    <form id="editForm">
       <div class="form-group">
         <label for="edit-clave-presupuestal">Clave Presupuestal</label>
         <input type="text" id="edit-clave-presupuestal" required>
@@ -108,6 +106,8 @@
       <div class="form-group">
         <label for="edit-nivel-educativo">Nivel Educativo</label>
         <input type="text" id="edit-nivel-educativo" required>
+      </div>
+      <div class="form-group">
         <label for="edit-zona-economica">Zona Económica</label>
         <input type="text" id="edit-zona-economica" required>
       </div>
@@ -115,11 +115,13 @@
         <label for="edit-observaciones">Observaciones</label>
         <textarea id="edit-observaciones"></textarea>
       </div>
-      <button type="submit" onclick="saveEdit()">Guardar</button>
+      <input type="hidden" id="edit-id">
+      <button type="button" onclick="saveEdit()">Guardar</button>
       <button type="button" onclick="closeEditModal()">Cancelar</button>
     </form>
   </div>
-
+  
   <script src="listavacante.js"></script>
 </body>
 </html>
+

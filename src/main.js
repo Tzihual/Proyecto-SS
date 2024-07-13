@@ -1,7 +1,7 @@
 // src/main.js
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { MongoClient, ObjectId } = require('mongodb'); // Asegúrate de importar ObjectId
+const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const connectDB = require('./conexion');
@@ -57,6 +57,9 @@ ipcMain.handle('get-all-vacantes', async () => {
 // Manejo del evento 'get-vacante'
 ipcMain.handle('get-vacante', async (event, id) => {
     try {
+        if (!ObjectId.isValid(id)) {
+            throw new Error('Invalid ObjectId');
+        }
         const db = await connectDB();
         const vacante = await db.collection('vacante').findOne({ _id: new ObjectId(id) });
         return vacante;
@@ -69,6 +72,9 @@ ipcMain.handle('get-vacante', async (event, id) => {
 // Manejo del evento 'delete-vacante'
 ipcMain.handle('delete-vacante', async (event, id) => {
     try {
+        if (!ObjectId.isValid(id)) {
+            throw new Error('Invalid ObjectId');
+        }
         const db = await connectDB();
         const result = await db.collection('vacante').deleteOne({ _id: new ObjectId(id) });
         return result.deletedCount > 0;
@@ -81,6 +87,9 @@ ipcMain.handle('delete-vacante', async (event, id) => {
 // Manejo del evento 'update-vacante'
 ipcMain.handle('update-vacante', async (event, id, updateData) => {
     try {
+        if (!ObjectId.isValid(id)) {
+            throw new Error('Invalid ObjectId');
+        }
         const db = await connectDB();
         const result = await db.collection('vacante').updateOne(
             { _id: new ObjectId(id) },
@@ -93,14 +102,3 @@ ipcMain.handle('update-vacante', async (event, id, updateData) => {
     }
 });
 
-// Manejo del evento 'add-vacancy'
-ipcMain.handle('add-vacancy', async (event, formData) => {
-    try {
-        const db = await connectDB();
-        const result = await db.collection('vacante').insertOne(formData);
-        return result.insertedId;
-    } catch (error) {
-        console.error('Error al agregar la vacante:', error);
-        throw error;
-    }
-});

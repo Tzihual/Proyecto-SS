@@ -36,6 +36,9 @@ function renderVacantes(vacantes) {
 
 async function openEditModal(id) {
     try {
+        if (!id || id.length !== 24) {
+            throw new Error('Invalid ID format');
+        }
         const vacante = await ipcRenderer.invoke('get-vacante', id);
         document.getElementById('edit-clave-presupuestal').value = vacante.clavePresupuestal;
         document.getElementById('edit-municipio').value = vacante.municipio;
@@ -98,6 +101,10 @@ async function saveEdit() {
 
 async function deleteVacante(id) {
     try {
+        if (!id || id.length !== 24) {
+            throw new Error('Invalid ID format');
+        }
+
         const confirmed = confirm('¿Estás seguro de que deseas eliminar esta vacante?');
         if (!confirmed) {
             return;
@@ -117,4 +124,3 @@ async function deleteVacante(id) {
 }
 
 document.addEventListener('DOMContentLoaded', fetchVacantes);
-
