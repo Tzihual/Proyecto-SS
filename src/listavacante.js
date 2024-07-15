@@ -6,17 +6,15 @@ async function fetchVacantes() {
         const vacantes = await ipcRenderer.invoke('get-all-vacantes');
         renderVacantes(vacantes);
     } catch (error) {
-        console.error('Error fetching vacantes:', error);
+        console.error('Error al obtener vacantes:', error);
     }
 }
 
 function renderVacantes(vacantes) {
     const tbody = document.querySelector('#vacantes-table tbody');
     tbody.innerHTML = '';
-
     vacantes.forEach(vacante => {
         const tr = document.createElement('tr');
-
         tr.innerHTML = `
             <td>${vacante.clavePresupuestal}</td>
             <td>${vacante.claveCT}</td>
@@ -29,16 +27,12 @@ function renderVacantes(vacantes) {
                 <button onclick="deleteVacante('${vacante._id}')">Eliminar</button>
             </td>
         `;
-
         tbody.appendChild(tr);
     });
 }
 
 async function openEditModal(id) {
     try {
-        if (!id || id.length !== 24) {
-            throw new Error('Invalid ID format');
-        }
         const vacante = await ipcRenderer.invoke('get-vacante', id);
         document.getElementById('edit-clave-presupuestal').value = vacante.clavePresupuestal;
         document.getElementById('edit-municipio').value = vacante.municipio;
@@ -56,11 +50,10 @@ async function openEditModal(id) {
         document.getElementById('edit-zona-economica').value = vacante.zonaEconomica;
         document.getElementById('edit-observaciones').value = vacante.observaciones;
         document.getElementById('edit-id').value = id;
-
         document.getElementById('editModal').style.display = 'block';
     } catch (error) {
-        console.error('Error loading vacante for edit:', error);
-        alert('Error loading vacante for edit. See console for details.');
+        console.error('Error al cargar la vacante para editar:', error);
+        alert('Error al cargar la vacante para editar. Ver consola para más detalles.');
     }
 }
 
@@ -94,22 +87,17 @@ async function saveEdit() {
         closeEditModal();
         fetchVacantes();
     } catch (error) {
-        console.error('Error updating vacante:', error);
-        alert('Error updating vacante. See console for details.');
+        console.error('Error al actualizar la vacante:', error);
+        alert('Error al actualizar la vacante. Ver consola para más detalles.');
     }
 }
 
 async function deleteVacante(id) {
     try {
-        if (!id || id.length !== 24) {
-            throw new Error('Invalid ID format');
-        }
-
         const confirmed = confirm('¿Estás seguro de que deseas eliminar esta vacante?');
         if (!confirmed) {
             return;
         }
-
         const success = await ipcRenderer.invoke('delete-vacante', id);
         if (success) {
             alert('Vacante eliminada exitosamente');
@@ -118,8 +106,8 @@ async function deleteVacante(id) {
             alert('Error al eliminar la vacante');
         }
     } catch (error) {
-        console.error('Error deleting vacante:', error);
-        alert('Error deleting vacante. See console for details.');
+        console.error('Error al eliminar la vacante:', error);
+        alert('Error al eliminar la vacante. Ver consola para más detalles.');
     }
 }
 

@@ -19,15 +19,6 @@ function createWindow() {
 
     win.loadFile(path.join(__dirname, 'index.html'));
     win.webContents.openDevTools();
-
-    win.webContents.on('did-finish-load', async () => {
-        try {
-            const db = await connectDB();
-            console.log('Se conectó a MongoDB Atlas.');
-        } catch (error) {
-            console.error('Error conectando a MongoDB Atlas:', error);
-        }
-    });
 }
 
 app.whenReady().then(createWindow);
@@ -42,24 +33,22 @@ app.on('activate', () => {
     }
 });
 
-// Manejo del evento 'get-all-vacantes'
 ipcMain.handle('get-all-vacantes', async () => {
     try {
         const db = await connectDB();
         const vacantes = await db.collection('vacante').find().toArray();
-        return vacantes;
+        return vacantes.map(vacante => ({
+            ...vacante,
+            _id: vacante._id.toString()
+        }));
     } catch (error) {
         console.error('Error al obtener todas las vacantes:', error);
         throw error;
     }
 });
 
-// Manejo del evento 'get-vacante'
 ipcMain.handle('get-vacante', async (event, id) => {
     try {
-        if (!ObjectId.isValid(id)) {
-            throw new Error('Invalid ObjectId');
-        }
         const db = await connectDB();
         const vacante = await db.collection('vacante').findOne({ _id: new ObjectId(id) });
         return vacante;
@@ -69,12 +58,8 @@ ipcMain.handle('get-vacante', async (event, id) => {
     }
 });
 
-// Manejo del evento 'delete-vacante'
 ipcMain.handle('delete-vacante', async (event, id) => {
     try {
-        if (!ObjectId.isValid(id)) {
-            throw new Error('Invalid ObjectId');
-        }
         const db = await connectDB();
         const result = await db.collection('vacante').deleteOne({ _id: new ObjectId(id) });
         return result.deletedCount > 0;
@@ -84,21 +69,13 @@ ipcMain.handle('delete-vacante', async (event, id) => {
     }
 });
 
-// Manejo del evento 'update-vacante'
 ipcMain.handle('update-vacante', async (event, id, updateData) => {
     try {
-        if (!ObjectId.isValid(id)) {
-            throw new Error('Invalid ObjectId');
-        }
         const db = await connectDB();
-        const result = await db.collection('vacante').updateOne(
-            { _id: new ObjectId(id) },
-            { $set: updateData }
-        );
+        const result = await db.collection('vacante').updateOne({ _id: new ObjectId(id) }, { $set: updateData });
         return result.modifiedCount > 0;
     } catch (error) {
         console.error('Error al actualizar la vacante:', error);
         throw error;
     }
 });
-
