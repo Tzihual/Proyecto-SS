@@ -1,14 +1,48 @@
 // src/listavacante.js
 const { ipcRenderer } = require('electron');
 
+let allVacantes = [];
+
 async function fetchVacantes() {
     try {
         const vacantes = await ipcRenderer.invoke('get-all-vacantes');
+        allVacantes = vacantes;  // Almacenar globalmente para búsqueda
         renderVacantes(vacantes);
     } catch (error) {
         console.error('Error al obtener vacantes:', error);
     }
 }
+
+// Delegación de eventos para manejar dinámicamente los clics en botones dentro de la tabla
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', filterVacantes);
+
+    document.getElementById('vacantes-table').addEventListener('click', function(event) {
+        if (event.target.tagName === 'BUTTON') {
+            const id = event.target.getAttribute('data-id');
+            if (event.target.classList.contains('edit-btn')) {
+                openEditModal(id);
+            } else if (event.target.classList.contains('delete-btn')) {
+                deleteVacante(id);
+            }
+        }
+    });
+
+    fetchVacantes();
+});
+
+function filterVacantes() {
+    const search = document.getElementById('search-input').value.toLowerCase();
+    const filteredVacantes = allVacantes.filter(vacante =>
+        Object.values(vacante).some(value =>
+            String(value).toLowerCase().includes(search)
+        )
+    );
+    renderVacantes(filteredVacantes);
+}
+
+
 
 function renderVacantes(vacantes) {
     const tbody = document.querySelector('#vacantes-table tbody');
@@ -23,13 +57,25 @@ function renderVacantes(vacantes) {
             <td>${vacante.nivelEducativo}</td>
             <td>${vacante.tipoContrato}</td>
             <td>
-                <button onclick="openEditModal('${vacante._id}')">Editar</button>
-                <button onclick="deleteVacante('${vacante._id}')">Eliminar</button>
+                <button class="edit-btn" data-id="${vacante._id}">Editar</button>
+                <button class="delete-btn" data-id="${vacante._id}">Eliminar</button>
             </td>
         `;
         tbody.appendChild(tr);
     });
 }
+
+function filterVacantes() {
+    const search = document.getElementById('search-input').value.toLowerCase();
+    const filteredVacantes = allVacantes.filter(vacante =>
+        Object.values(vacante).some(value => 
+            String(value).toLowerCase().includes(search)
+        )
+    );
+    renderVacantes(filteredVacantes);
+}
+
+// Las funciones openEditModal, closeEditModal, saveEdit y deleteVacante se mantienen sin cambios.
 
 async function openEditModal(id) {
     try {
@@ -48,6 +94,7 @@ async function openEditModal(id) {
         document.getElementById('edit-estatus').value = vacante.estatus;
         document.getElementById('edit-nivel-educativo').value = vacante.nivelEducativo;
         document.getElementById('edit-zona-economica').value = vacante.zonaEconomica;
+        document.getElementById('edit-tipo-contrato').value = vacante.tipoContrato;
         document.getElementById('edit-observaciones').value = vacante.observaciones;
         document.getElementById('edit-id').value = id;
         document.getElementById('editModal').style.display = 'block';
@@ -78,6 +125,7 @@ async function saveEdit() {
         estatus: document.getElementById('edit-estatus').value,
         nivelEducativo: document.getElementById('edit-nivel-educativo').value,
         zonaEconomica: document.getElementById('edit-zona-economica').value,
+        tipoContrato: document.getElementById('edit-tipo-contrato').value,
         observaciones: document.getElementById('edit-observaciones').value
     };
 

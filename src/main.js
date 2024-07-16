@@ -33,6 +33,18 @@ app.on('activate', () => {
     }
 });
 
+ipcMain.handle('add-vacancy', async (event, formData) => {
+    try {
+        const db = await connectDB();
+        const result = await db.collection('vacante').insertOne(formData);
+        return result.insertedId;  // Devuelve el ID del documento insertado
+    } catch (error) {
+        console.error('Error al registrar la vacante:', error);
+        throw new Error('No se pudo registrar la vacante');
+    }
+});
+
+
 ipcMain.handle('get-all-vacantes', async () => {
     try {
         const db = await connectDB();
