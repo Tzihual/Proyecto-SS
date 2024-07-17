@@ -147,6 +147,7 @@ form {
   width: 100%;
   box-sizing: border-box;
   margin: 5px;
+  pointer-events: auto; 
 }
 
 

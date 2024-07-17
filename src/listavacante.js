@@ -85,7 +85,7 @@ async function openEditModal(id) {
         document.getElementById('editModal').style.display = 'block';
     } catch (error) {
         console.error('Error al cargar la vacante para editar:', error);
-        alert('Error al cargar la vacante para editar. Ver consola para más detalles.');
+        Swal.fire('Error al cargar la vacante para editar..');
     }
 }
 

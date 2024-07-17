@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Registrar Vacante</title>
   <link rel="stylesheet" href="estiloregistrovacantes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <div class="container">
@@ -26,13 +28,20 @@
           </li>
           <li>
             <a href="listavacante.html">
-              <img src="imagenes/vacante-de-trabajo.png" alt="Lista de Vacantes">
-              <span>LISTA DE VACANTES</span>
+              <img src="imagenes/cv.png" alt="Lista de Vacantes">
+              <span>BUSCAR VACANTES</span>
           </a>
           </li>
           <li>
             <img src="imagenes/reporte.png" alt="Reportes">
             <span>REPORTES</span>
+          </li>
+          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          <li>
+            <a href="menu.html">
+              <img src="imagenes/volver.png" alt="Lista de Vacantes">
+              <span>MENÚ PRINCIPAL</span>
+          </a>
           </li>
         </ul>
       </nav>
@@ -43,11 +52,11 @@
       </header>
       <div class="form-container">
         <h2>REGISTRAR VACANTES</h2>
-        <button class="close-button">✖</button>
+        
         <form>
           <div class="form-group">
             <label for="clave-presupuestal">Clave Presupuestal</label>
-            <input type="text" id="clave-presupuestal">
+            <input type="text" id="clave-presupuestal" required onfocus="console.log('Campo de clave presupuestal enfocado')">
             <label for="municipio">Municipio</label>
             <select id="municipio">
               <option value="">Seleccione un municipio</option>

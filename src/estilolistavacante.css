@@ -124,8 +124,8 @@ table th, table td {
 }
 
 table th {
-  background-color: #f4a261;
-  color: white;
+  background-color: #e0e0e0; /* Tono gris */
+  color: black;
 }
 
 table tr:nth-child(even) {
@@ -143,21 +143,21 @@ table td button {
   font-size: 14px;
 }
 
-.edit-button {
+.edit-btn {
   background-color: #FFD700; /* Color amarillito */
   color: black;
 }
 
-.edit-button:hover {
+.edit-btn:hover {
   background-color: #FFC107;
 }
 
-.delete-button {
+.delete-btn {
   background-color: #f44336; /* Color rojito */
   color: white;
 }
 
-.delete-button:hover {
+.delete-btn:hover {
   background-color: #e53935;
 }
 
@@ -176,10 +176,10 @@ table td button {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 5% auto; /* 5% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 50%; /* Could be more or less, depending on screen size */
 }
 
 .close-button {
@@ -196,21 +196,88 @@ table td button {
   cursor: pointer;
 }
 
-.save-button, .cancel-button {
-  margin-top: 20px;
+.modal form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.modal .form-group {
+  width: 48%;
+  margin-bottom: 10px;
+}
+
+.modal .form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal .form-group input, .modal .form-group textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal .form-group.full-width {
+  width: 100%;
+}
+
+.modal .form-group textarea {
+  resize: vertical;
+}
+
+.modal .save-button, .modal .cancel-button {
+  width: 45%;
+  margin: 0 auto;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   font-size: 16px;
+  display: inline-block;
+  text-align: center;
 }
 
-.save-button {
+.modal .save-button {
   background-color: #4CAF50;
   color: white;
+  margin-right: 10px;
 }
 
-.cancel-button {
+.modal .cancel-button {
   background-color: #f44336;
   color: white;
 }
 
+.modal .button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.search-input {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 35%;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}

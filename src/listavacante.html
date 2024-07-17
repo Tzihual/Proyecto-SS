@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Lista de Vacantes</title>
   <link rel="stylesheet" href="estilolistavacante.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <div class="container">
@@ -26,13 +28,20 @@
           </li>
           <li>
             <a href="listavacante.html">
-              <img src="imagenes/vacante-de-trabajo.png" alt="Lista de Vacantes">
-              <span>LISTA DE VACANTES</span>
+              <img src="imagenes/cv.png" alt="Lista de Vacantes">
+              <span>BUSCAR VACANTES</span>
             </a>
           </li>
           <li>
             <img src="imagenes/reporte.png" alt="Reportes">
             <span>REPORTES</span>
+          </li>
+          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          <li>
+            <a href="menu.html">
+              <img src="imagenes/volver.png" alt="Lista de Vacantes">
+              <span>MENÚ PRINCIPAL</span>
+          </a>
           </li>
         </ul>
       </nav>
@@ -44,7 +53,10 @@
       <div class="form-container">
         <h2>LISTA DE VACANTES</h2>
         <br>
-        <input type="text" id="search-input" placeholder="Buscar vacante">
+        <div class="search-container">
+          <input type="text" id="search-input" class="search-input" placeholder="Buscar vacante">
+          <img src="imagenes/lupa.png" class="search-icon" alt="Buscar">
+        </div>
         <br><br>
         <table id="vacantes-table">
           <thead>
