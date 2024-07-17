@@ -2,9 +2,10 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { MongoClient, ObjectId } = require('mongodb');
+const connectDB = require('./conexion');
 require('dotenv').config();
 
-const connectDB = require('./conexion');
+
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -18,7 +19,7 @@ function createWindow() {
     });
 
     win.loadFile(path.join(__dirname, 'index.html'));
-    win.webContents.openDevTools();
+   // win.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);
@@ -35,9 +36,12 @@ app.on('activate', () => {
 
 ipcMain.handle('add-vacancy', async (event, formData) => {
     try {
+        console.log('Conectando a la base de datos...');
         const db = await connectDB();
+        console.log('Conexión exitosa. Insertando datos...');
         const result = await db.collection('vacante').insertOne(formData);
-        return result.insertedId;  // Devuelve el ID del documento insertado
+        console.log('Datos insertados con éxito:', result.insertedId);
+        return result.insertedId;
     } catch (error) {
         console.error('Error al registrar la vacante:', error);
         throw new Error('No se pudo registrar la vacante');

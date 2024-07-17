@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     try {
+      console.log('Enviando datos del formulario al proceso principal:', formData);
       const docId = await ipcRenderer.invoke('add-vacancy', formData);
       console.log('Vacante registrada con éxito, ID:', docId);
       alert('Vacante registrada con éxito!');

@@ -39,11 +39,13 @@
     </div>
     <div class="main-content">
       <header>
-        <h1>LISTA DE VACANTES</h1>
+        <h1>PLAZA VACANTES</h1>
       </header>
       <div class="form-container">
         <h2>LISTA DE VACANTES</h2>
-        <input type="text" id="search-input" placeholder="Buscar vacante...">
+        <br>
+        <input type="text" id="search-input" placeholder="Buscar vacante">
+        <br><br>
         <table id="vacantes-table">
           <thead>
             <tr>
@@ -65,66 +67,70 @@
   </div>
   
   <!-- Modal de Edición -->
-  <div id="editModal" style="display:none;">
-    <form id="editForm">
-      <div class="form-group">
-        <label for="edit-clave-presupuestal">Clave Presupuestal</label>
-        <input type="text" id="edit-clave-presupuestal" required>
-        <label for="edit-municipio">Municipio</label>
-        <input type="text" id="edit-municipio" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-clave-ct">Clave del C.T</label>
-        <input type="text" id="edit-clave-ct" required>
-        <label for="edit-localidad">Localidad</label>
-        <input type="text" id="edit-localidad" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-funcion">Función</label>
-        <input type="text" id="edit-funcion" required>
-        <label for="edit-fecha-inicio">Fecha Inicio</label>
-        <input type="date" id="edit-fecha-inicio" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-motivo">Motivo</label>
-        <input type="text" id="edit-motivo" required>
-        <label for="edit-fecha-fin">Fecha de Fin</label>
-        <input type="date" id="edit-fecha-fin" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-nombre-escuela">Nombre de la escuela</label>
-        <input type="text" id="edit-nombre-escuela" required>
-        <label for="edit-perfil-requerido">Perfil requerido</label>
-        <input type="text" id="edit-perfil-requerido" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-turno">Turno</label>
-        <input type="text" id="edit-turno" required>
-        <label for="edit-estatus">Estatus</label>
-        <input type="text" id="edit-estatus" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-nivel-educativo">Nivel Educativo</label>
-        <input type="text" id="edit-nivel-educativo" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-zona-economica">Zona Económica</label>
-        <input type="text" id="edit-zona-economica" required>
-      </div>
-      <div class="form-group">
-        <label for="edit-tipo-contrato">Tipo de Contrato</label>
-        <input type="text" id="edit-tipo-contrato" required>
-      </div>
-      <div class="form-group full-width">
-        <label for="edit-observaciones">Observaciones</label>
-        <textarea id="edit-observaciones"></textarea>
-      </div>
-      <input type="hidden" id="edit-id">
-      <button type="button" onclick="saveEdit()">Guardar</button>
-      <button type="button" onclick="closeEditModal()">Cancelar</button>
-    </form>
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeEditModal()">&times;</span>
+      <form id="editForm">
+        <div class="form-group">
+          <label for="edit-clave-presupuestal">Clave Presupuestal</label>
+          <input type="text" id="edit-clave-presupuestal" required>
+          <label for="edit-municipio">Municipio</label>
+          <input type="text" id="edit-municipio" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-clave-ct">Clave del C.T</label>
+          <input type="text" id="edit-clave-ct" required>
+          <label for="edit-localidad">Localidad</label>
+          <input type="text" id="edit-localidad" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-funcion">Función</label>
+          <input type="text" id="edit-funcion" required>
+          <label for="edit-fecha-inicio">Fecha Inicio</label>
+          <input type="date" id="edit-fecha-inicio" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-motivo">Motivo</label>
+          <input type="text" id="edit-motivo" required>
+          <label for="edit-fecha-fin">Fecha de Fin</label>
+          <input type="date" id="edit-fecha-fin" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-nombre-escuela">Nombre de la escuela</label>
+          <input type="text" id="edit-nombre-escuela" required>
+          <label for="edit-perfil-requerido">Perfil requerido</label>
+          <input type="text" id="edit-perfil-requerido" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-turno">Turno</label>
+          <input type="text" id="edit-turno" required>
+          <label for="edit-estatus">Estatus</label>
+          <input type="text" id="edit-estatus" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-nivel-educativo">Nivel Educativo</label>
+          <input type="text" id="edit-nivel-educativo" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-zona-economica">Zona Económica</label>
+          <input type="text" id="edit-zona-economica" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-tipo-contrato">Tipo de Contrato</label>
+          <input type="text" id="edit-tipo-contrato" required>
+        </div>
+        <div class="form-group full-width">
+          <label for="edit-observaciones">Observaciones</label>
+          <textarea id="edit-observaciones"></textarea>
+        </div>
+        <input type="hidden" id="edit-id">
+        <button type="button" class="save-button" onclick="saveEdit()">Guardar</button>
+        <button type="button" class="cancel-button" onclick="closeEditModal()">Cancelar</button>
+      </form>
+    </div>
   </div>
   
   <script src="listavacante.js"></script>
 </body>
 </html>
+

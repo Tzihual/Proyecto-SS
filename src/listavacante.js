@@ -1,4 +1,3 @@
-// src/listavacante.js
 const { ipcRenderer } = require('electron');
 
 let allVacantes = [];
@@ -42,8 +41,6 @@ function filterVacantes() {
     renderVacantes(filteredVacantes);
 }
 
-
-
 function renderVacantes(vacantes) {
     const tbody = document.querySelector('#vacantes-table tbody');
     tbody.innerHTML = '';
@@ -64,18 +61,6 @@ function renderVacantes(vacantes) {
         tbody.appendChild(tr);
     });
 }
-
-function filterVacantes() {
-    const search = document.getElementById('search-input').value.toLowerCase();
-    const filteredVacantes = allVacantes.filter(vacante =>
-        Object.values(vacante).some(value => 
-            String(value).toLowerCase().includes(search)
-        )
-    );
-    renderVacantes(filteredVacantes);
-}
-
-// Las funciones openEditModal, closeEditModal, saveEdit y deleteVacante se mantienen sin cambios.
 
 async function openEditModal(id) {
     try {
@@ -158,5 +143,3 @@ async function deleteVacante(id) {
         alert('Error al eliminar la vacante. Ver consola para más detalles.');
     }
 }
-
-document.addEventListener('DOMContentLoaded', fetchVacantes);
