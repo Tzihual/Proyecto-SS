@@ -95,3 +95,23 @@ ipcMain.handle('update-vacante', async (event, id, updateData) => {
         throw error;
     }
 });
+
+ipcMain.handle('get-report-data', async (event, { startDate, endDate }) => {
+    try {
+        const db = await connectDB();
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        const reportData = await db.collection('vacante').find({
+            
+            fechaRegistro: {
+                $gte: start,
+                $lte: end
+            }
+        }).toArray();
+        return reportData;
+    } catch (error) {
+        console.error('Error al obtener los datos del reporte:', error);
+        throw error;
+    }
+});

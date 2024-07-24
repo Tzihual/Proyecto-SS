@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <title>sepen.com</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
 </head>
 <body>
   <div class="login-container">
@@ -70,10 +69,10 @@ const uri = process.env.MONGODB_URI2;
     const password = document.getElementById('password').value;
     const usuarioValido = await validarUsuario(username, password);
     if (usuarioValido) {
-      Swal.fire('Usuario autenticado exitosamente!');
+      alert('Usuario autenticado exitosamente!');
       window.location.href = 'menu.html'; 
     } else {
-      Swal.fire('Usuario o contraseña incorrectos. Intente de nuevo.');
+      alert('Usuario o contraseña incorrectos. Intente de nuevo.');
     }
   });
   </script>

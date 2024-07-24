@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
       materiaSecundaria: materiasSecundariaContainer.style.display === 'none' ? null : materiasSecundaria.value,
       zonaEconomica: document.getElementById('zona-economica').value,
       tipoContrato: document.querySelector('input[name="tipo-contrato"]:checked').value,
-      observaciones: document.getElementById('observaciones').value
+      observaciones: document.getElementById('observaciones').value,
+      fechaRegistro: new Date()
     };
 
     try {
