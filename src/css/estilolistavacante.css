@@ -83,11 +83,13 @@ nav ul li span {
 .main-content {
   flex: 1;
   padding: 20px;
+  height: 100%; /* Ajuste de altura */
+  overflow-y: auto; /* Para permitir el desplazamiento si es necesario */
 }
 
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -96,6 +98,7 @@ header h1 {
   margin: 0;
   font-size: 24px;
   color: #A19595;
+  text-align: center;
 }
 
 .form-container {
@@ -274,10 +277,12 @@ table td button {
 
 .search-icon {
   position: absolute;
-  right: 35%;
+  right: 110px; 
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   width: 20px;
   height: 20px;
+  border: none;
 }
+

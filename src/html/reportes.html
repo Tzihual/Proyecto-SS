@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Generar Reporte</title>
-  <link rel="stylesheet" href="estiloreportes.css">
+  <link rel="stylesheet" href="../css/estiloreportes.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -12,48 +12,49 @@
   <div class="container">
     <div class="sidebar">
       <div class="logo-container">
-        <img src="imagenes/logo.png" alt="Logo">
+        <img src="../imagenes/logo.png" alt="Logo">
         <div class="gold-line"></div>
       </div>
       <div class="user-info">
-        <img src="imagenes/usuario.png" alt="Usuario">
+        <img src="../imagenes/usuario.png" alt="Usuario">
         <span>Administrador</span>
       </div>
       <nav>
         <ul>
           <li>
-            <a href="registrarvacante.html">
-              <img src="imagenes/vacante-de-trabajo.png" alt="Vacantes">
-              <span>VACANTES</span>
+            <a href="../html/registrarvacante.html">
+              <img src="../imagenes/vacante-de-trabajo.png" alt="Vacantes">
+              <span>REGISTRAR VACANTE</span>
             </a>
           </li>
           <li>
-            <a href="listavacante.html">
-              <img src="imagenes/cv.png" alt="Lista de Vacantes">
-              <span>BUSCAR VACANTES</span>
-            </a>
+            <a href="../html/listavacante.html">            <img src="../imagenes/cv.png" alt="Buscar Vacante">
+            <span>BUSCAR VACANTE</span>
+          </a>
           </li>
           <li>
-            <a href="reportes.html">
-              <img src="imagenes/reporte.png" alt="Reportes">
+            <a href="../html/reportes.html">
+              <img src="../imagenes/reporte.png" alt="Reportes">
               <span>REPORTES</span>
             </a>
           </li>
-          <li>
-            <a href="menu.html">
-              <img src="imagenes/volver.png" alt="Menú Principal">
+          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          <!--li>
+            <a href="../html/listavacante.html">
+              <img src="../imagenes/volver.png" alt="Lista de Vacantes">
               <span>MENÚ PRINCIPAL</span>
-            </a>
-          </li>
+          </a>
+          </li-->
         </ul>
       </nav>
     </div>
     <div class="main-content">
       <header>
-        <h1>GENERAR REPORTE</h1>
+        <h1>PLAZAS VACANTES</h1>
       </header>
       <div class="form-container">
-        <h2>Selecciona el Rango de Fechas</h2>
+        <h2>GENERAR REPORTE</h2>
+        <h3>Selecciona el rango de fechas</h3>
         <form id="report-form">
           <div class="form-group">
             <label for="start-date">Fecha Inicio:</label>
@@ -73,6 +74,6 @@
     </div>
   </div>
   
-  <script src="reportes.js"></script>
+  <script src="../js/reportes.js"></script>
 </body>
 </html>

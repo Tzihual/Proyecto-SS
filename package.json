@@ -2,7 +2,7 @@
   "name": "proyecto-ss",
   "version": "1.0.0",
   "description": "Electron application with MongoDB",
-  "main": "src/main.js",
+  "main": "src/js/main.js",
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w mongodb"
@@ -15,7 +15,7 @@
   "author": "proyecto",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^31.2.0",
+    "electron": "^31.2.1",
     "electron-rebuild": "^3.2.9"
   },
   "dependencies": {

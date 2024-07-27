@@ -83,11 +83,14 @@ nav ul li span {
 .main-content {
   flex: 1;
   padding: 20px;
+
+  height: 100%; /* Ajuste de altura */
+  overflow-y: auto; /* Para permitir el desplazamiento si es necesario */
 }
 
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -96,6 +99,7 @@ header h1 {
   margin: 0;
   font-size: 24px;
   color: #A19595;
+  text-align: center;
 }
 
 .form-container {
@@ -131,7 +135,7 @@ header h1 {
 .generate-button {
   width: 100%;
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #888;
   color: white;
   border: none;
   cursor: pointer;
@@ -139,7 +143,7 @@ header h1 {
 }
 
 .generate-button:hover {
-  background-color: #45a049;
+  background-color: #555;
 }
 
 .report-result {
@@ -153,7 +157,7 @@ header h1 {
 .download-button {
   width: 100%;
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #888;
   color: white;
   border: none;
   cursor: pointer;
@@ -162,7 +166,7 @@ header h1 {
 }
 
 .download-button:hover {
-  background-color: #45a049;
+  background-color: #555;
 }
 
 table {
@@ -178,7 +182,7 @@ table th, table td {
 }
 
 table th {
-  background-color: #e0e0e0; /* Tono gris */
+  background-color: #e0e0e0; 
   color: black;
 }
 

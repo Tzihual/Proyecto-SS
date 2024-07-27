@@ -3,44 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Lista de Vacantes</title>
-  <link rel="stylesheet" href="estilolistavacante.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="../css/estilolistavacante.css">
+
 </head>
 <body>
   <div class="container">
     <div class="sidebar">
       <div class="logo-container">
-        <img src="imagenes/logo.png" alt="Logo">
+        <img src="../imagenes/logo.png" alt="Logo">
         <div class="gold-line"></div>
       </div>
       <div class="user-info">
-        <img src="imagenes/usuario.png" alt="Usuario">
+        <img src="../imagenes/usuario.png" alt="Usuario">
         <span>Administrador</span>
       </div>
       <nav>
         <ul>
           <li>
-            <a href="registrarvacante.html">
-              <img src="imagenes/vacante-de-trabajo.png" alt="Vacantes">
-              <span>VACANTES</span>
+            <a href="../html/registrarvacante.html">
+              <img src="../imagenes/vacante-de-trabajo.png" alt="Vacantes">
+              <span>REGISTRAR VACANTE</span>
             </a>
           </li>
           <li>
-            <a href="listavacante.html">
-              <img src="imagenes/cv.png" alt="Lista de Vacantes">
-              <span>BUSCAR VACANTES</span>
-            </a>
+            <a href="../html/listavacante.html">            <img src="../imagenes/cv.png" alt="Buscar Vacante">
+            <span>BUSCAR VACANTE</span>
+          </a>
           </li>
           <li>
-            <img src="imagenes/reporte.png" alt="Reportes">
+            <a href="../html/reportes.html">            <img src="../imagenes/reporte.png" alt="Reportes">
             <span>REPORTES</span>
+          </a>
           </li>
           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           <li>
-            <a href="menu.html">
-              <img src="imagenes/volver.png" alt="Lista de Vacantes">
-              <span>MENÚ PRINCIPAL</span>
+            <a href="../html/index.html">
+              <img src="../imagenes/cerrar.png" alt="Cerrar sesión">
+              <span>CERRAR SESIÓN</span>
           </a>
           </li>
         </ul>
@@ -55,7 +54,7 @@
         <br>
         <div class="search-container">
           <input type="text" id="search-input" class="search-input" placeholder="Buscar vacante">
-          <img src="imagenes/lupa.png" class="search-icon" alt="Buscar">
+          <img src="../imagenes/lupa.png" class="search-icon" alt="Buscar">
         </div>
         <br><br>
         <table id="vacantes-table">
@@ -142,7 +141,7 @@
     </div>
   </div>
   
-  <script src="listavacante.js"></script>
+  <script src="../js/listavacante.js"></script>
 </body>
 </html>
 

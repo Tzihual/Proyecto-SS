@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>sepen.com</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Inicio de sesión</title>
+  <link rel="stylesheet" href="../css/styles.css">
   
 </head>
 <body>
   <div class="login-container">
     <div class="logo-container">
-      <img class="imagen-logo" src="imagenes/logo.png" alt="Logo">
+      <img class="imagen-logo" src="../imagenes/logo.png" alt="Logo">
       <div class="gold-line"></div>
     </div>
     <header>
@@ -17,11 +17,11 @@
     </header>
     <form id="loginForm" action="#" method="POST" novalidate>
       <div class="input-group">
-        <img class="imagenes-login" src="imagenes/usuario.png" alt="User Icon">
+        <img class="imagenes-login" src="../imagenes/usuario.png" alt="User Icon">
         <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" title="Solo letras y números" required placeholder="Usuario">
       </div>
       <div class="input-group">
-        <img class="imagenes-login" src="imagenes/contrasena.png" alt="Lock Icon">
+        <img class="imagenes-login" src="../imagenes/contrasena.png" alt="Lock Icon">
         <input type="password" id="password" name="password" required placeholder="Contraseña">
         <span class="toggle-password">Mostrar</span>
       </div>
@@ -70,7 +70,7 @@ const uri = process.env.MONGODB_URI2;
     const usuarioValido = await validarUsuario(username, password);
     if (usuarioValido) {
       alert('Usuario autenticado exitosamente!');
-      window.location.href = 'menu.html'; 
+      window.location.href = 'listavacante.html'; 
     } else {
       alert('Usuario o contraseña incorrectos. Intente de nuevo.');
     }
