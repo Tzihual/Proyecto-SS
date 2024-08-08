@@ -65,6 +65,7 @@ function renderVacantes(vacantes) {
 async function openEditModal(id) {
     try {
         const vacante = await ipcRenderer.invoke('get-vacante', id);
+        // Código para cargar los datos en el formulario
         document.getElementById('edit-clave-presupuestal').value = vacante.clavePresupuestal;
         document.getElementById('edit-municipio').value = vacante.municipio;
         document.getElementById('edit-clave-ct').value = vacante.claveCT;
@@ -84,8 +85,11 @@ async function openEditModal(id) {
         document.getElementById('edit-id').value = id;
         document.getElementById('editModal').style.display = 'block';
     } catch (error) {
-        console.error('Error al cargar la vacante para editar:', error);
-        //Swal.fire('Error al cargar la vacante para editar..');
+        Swal.fire(
+            'Error!',
+            'Error al cargar la vacante para editar: ' + error.message,
+            'error'
+        );
     }
 }
 
@@ -96,6 +100,7 @@ function closeEditModal() {
 async function saveEdit() {
     const id = document.getElementById('edit-id').value;
     const updatedVacante = {
+        // tu código existente para capturar los datos del formulario
         clavePresupuestal: document.getElementById('edit-clave-presupuestal').value,
         municipio: document.getElementById('edit-municipio').value,
         claveCT: document.getElementById('edit-clave-ct').value,
@@ -115,31 +120,73 @@ async function saveEdit() {
     };
 
     try {
-        await ipcRenderer.invoke('update-vacante', id, updatedVacante);
-        alert('Vacante actualizada exitosamente');
-        closeEditModal();
-        fetchVacantes();
+        const success = await ipcRenderer.invoke('update-vacante', id, updatedVacante);
+        if (success) {
+            Swal.fire(
+                'Actualizado!',
+                'La vacante ha sido actualizada exitosamente.',
+                'success'
+            );
+            closeEditModal();
+            fetchVacantes();
+        } else {
+            Swal.fire(
+                'Error!',
+                'No se pudo actualizar la vacante.',
+                'error'
+            );
+        }
     } catch (error) {
-        console.error('Error al actualizar la vacante:', error);
-        alert('Error al actualizar la vacante');
+        Swal.fire(
+            'Error!',
+            'Error al actualizar la vacante: ' + error.message,
+            'error'
+        );
     }
 }
 
+
+
+
 async function deleteVacante(id) {
-    try {
-        const confirmed = confirm('¿Estás seguro de que deseas eliminar esta vacante?');
-        if (!confirmed) {
-            return;
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            performDeletion(id);
         }
+    });
+}
+
+async function performDeletion(id) {
+    try {
         const success = await ipcRenderer.invoke('delete-vacante', id);
         if (success) {
-            alert('Vacante eliminada exitosamente');
+            Swal.fire(
+                'Eliminado!',
+                'La vacante ha sido eliminada.',
+                'success'
+            );
             fetchVacantes();
         } else {
-            alert('Error al eliminar la vacante');
+            Swal.fire(
+                'Error!',
+                'No se pudo eliminar la vacante.',
+                'error'
+            );
         }
     } catch (error) {
-        console.error('Error al eliminar la vacante:', error);
-        alert('Error al eliminar la vacante. Ver consola para más detalles.');
+        Swal.fire(
+            'Error!',
+            'Error al eliminar la vacante: ' + error.message,
+            'error'
+        );
     }
 }

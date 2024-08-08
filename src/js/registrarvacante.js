@@ -24,7 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
 
     if (!form.checkValidity()) {
-      alert('Por favor, verifica que todos los campos estén correctamente llenados.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Por favor, verifica que todos los campos estén correctamente llenados.'
+      });
       return;
     }
 
@@ -50,16 +54,22 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     try {
-      console.log('Enviando datos del formulario al proceso principal:', formData);
       const docId = await ipcRenderer.invoke('add-vacancy', formData);
-      console.log('Vacante registrada con éxito, ID:', docId);
-      alert('Vacante registrada con éxito');
+      Swal.fire({
+        icon: 'success',
+        title: 'Registrado',
+        text: 'Vacante registrada con éxito!'
+      });
       form.reset();
       materiasSecundariaContainer.style.display = 'none';
     } catch (error) {
-      console.error('Error al registrar la vacante:', error);
-      alert('Error al registrar la vacante: ' + error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al registrar la vacante: ' + error.message
+      });
     }
   });
 });
+
 

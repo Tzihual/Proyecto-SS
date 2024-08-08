@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Inicio de sesión</title>
   <link rel="stylesheet" href="../css/styles.css">
-  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <div class="login-container">
@@ -30,7 +30,6 @@
   </div>
 
   <script>
-    //----------LO DE MOSTRAR---------------
     document.querySelector('.toggle-password').addEventListener('click', function (e) {
       const passwordInput = document.querySelector('#password');
       if (passwordInput.type === 'password') {
@@ -41,40 +40,52 @@
         e.target.textContent = 'Mostrar';
       }
     });
-//VERIFICAR USUARIO Y CONTRASEÑA
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
-const uri = process.env.MONGODB_URI2; 
-  const client = new MongoClient(uri);
 
-  async function validarUsuario(username, password) {
+    const { MongoClient } = require('mongodb');
+    require('dotenv').config();
+    const uri = process.env.MONGODB_URI2; 
+    const client = new MongoClient(uri);
+
+    async function validarUsuario(username, password) {
       try {
-          await client.connect();
-          const database = client.db("Proyecto-Vacante");
-          const usuarios = database.collection("usuario");
-          const query = { usuario: username, contraseña: password };
-          const user = await usuarios.findOne(query);
-          return user !== null;
+        await client.connect();
+        const database = client.db("Proyecto-Vacante");
+        const usuarios = database.collection("usuario");
+        const query = { usuario: username, contraseña: password };
+        const user = await usuarios.findOne(query);
+        return user !== null;
       } catch (error) {
-          console.error('Error al buscar el usuario:', error);
-          return false;
+        console.error('Error al buscar el usuario:', error);
+        return false;
       } finally {
-          await client.close();
+        await client.close();
       }
-  }
-
-  document.querySelector('form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const usuarioValido = await validarUsuario(username, password);
-    if (usuarioValido) {
-      alert('Usuario autenticado exitosamente');
-      window.location.href = 'listavacante.html'; 
-    } else {
-      alert('Usuario o contraseña incorrectos. Intente de nuevo');
     }
-  });
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const usuarioValido = await validarUsuario(username, password);
+      if (usuarioValido) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Autenticación Exitosa',
+          text: '¡Bienvenido al sistema!',
+          confirmButtonText: 'Continuar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = 'listavacante.html';
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de Autenticación',
+          text: 'Usuario o contraseña incorrectos. Intente de nuevo.'
+        });
+      }
+    });
   </script>
 </body>
 </html>
