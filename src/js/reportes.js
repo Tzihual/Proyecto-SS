@@ -7,7 +7,7 @@ document.getElementById('report-form').addEventListener('submit', async function
     const endDate = document.getElementById('end-date').value;
 
     if (new Date(startDate) > new Date(endDate)) {
-        alert('Error', 'La fecha de inicio no puede ser mayor que la fecha de fin.', 'error');
+        alert('Error', 'La fecha de inicio no puede ser mayor que la fecha de fin', 'error');
         return;
     }
 
@@ -16,7 +16,7 @@ document.getElementById('report-form').addEventListener('submit', async function
         displayReport(reportData);
     } catch (error) {
         console.error('Error al generar el reporte:', error);
-        alert('Error', 'Error al generar el reporte. Ver consola para más detalles.', 'error');
+        alert('Error', 'Error al generar el reporte', 'error');
     }
 });
 

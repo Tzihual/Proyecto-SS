@@ -69,10 +69,10 @@ const uri = process.env.MONGODB_URI2;
     const password = document.getElementById('password').value;
     const usuarioValido = await validarUsuario(username, password);
     if (usuarioValido) {
-      alert('Usuario autenticado exitosamente!');
+      alert('Usuario autenticado exitosamente');
       window.location.href = 'listavacante.html'; 
     } else {
-      alert('Usuario o contraseña incorrectos. Intente de nuevo.');
+      alert('Usuario o contraseña incorrectos. Intente de nuevo');
     }
   });
   </script>

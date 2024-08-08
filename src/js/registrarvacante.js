@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Enviando datos del formulario al proceso principal:', formData);
       const docId = await ipcRenderer.invoke('add-vacancy', formData);
       console.log('Vacante registrada con éxito, ID:', docId);
-      alert('Vacante registrada con éxito!');
+      alert('Vacante registrada con éxito');
       form.reset();
       materiasSecundariaContainer.style.display = 'none';
     } catch (error) {

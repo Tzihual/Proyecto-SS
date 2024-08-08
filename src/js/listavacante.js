@@ -85,7 +85,7 @@ async function openEditModal(id) {
         document.getElementById('editModal').style.display = 'block';
     } catch (error) {
         console.error('Error al cargar la vacante para editar:', error);
-        Swal.fire('Error al cargar la vacante para editar..');
+        //Swal.fire('Error al cargar la vacante para editar..');
     }
 }
 
@@ -121,7 +121,7 @@ async function saveEdit() {
         fetchVacantes();
     } catch (error) {
         console.error('Error al actualizar la vacante:', error);
-        alert('Error al actualizar la vacante. Ver consola para más detalles.');
+        alert('Error al actualizar la vacante');
     }
 }
 
