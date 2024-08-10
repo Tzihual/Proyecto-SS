@@ -43,15 +43,19 @@ function filterVacantes() {
 
 function renderVacantes(vacantes) {
     const tbody = document.querySelector('#vacantes-table tbody');
-    tbody.innerHTML = '';
+    tbody.innerHTML = ''; // Limpiar el cuerpo de la tabla antes de agregar nuevas filas
+
     vacantes.forEach(vacante => {
         const tr = document.createElement('tr');
+        let materiaColumn = vacante.nivelEducativo === 'Secundaria' ? `<td>${vacante.materiaSecundaria || 'N/A'}</td>` : '<td>N/A</td>';
+
         tr.innerHTML = `
             <td>${vacante.clavePresupuestal}</td>
             <td>${vacante.claveCT}</td>
             <td>${vacante.municipio}</td>
             <td>${vacante.nombreEscuela}</td>
             <td>${vacante.nivelEducativo}</td>
+            ${materiaColumn}
             <td>${vacante.tipoContrato}</td>
             <td>
                 <button class="edit-btn" data-id="${vacante._id}">Editar</button>
@@ -61,6 +65,7 @@ function renderVacantes(vacantes) {
         tbody.appendChild(tr);
     });
 }
+
 
 async function openEditModal(id) {
     try {
