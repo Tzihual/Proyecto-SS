@@ -65,7 +65,6 @@ function renderVacantes(vacantes) {
 async function openEditModal(id) {
     try {
         const vacante = await ipcRenderer.invoke('get-vacante', id);
-        // Código para cargar los datos en el formulario
         document.getElementById('edit-clave-presupuestal').value = vacante.clavePresupuestal;
         document.getElementById('edit-municipio').value = vacante.municipio;
         document.getElementById('edit-clave-ct').value = vacante.claveCT;
@@ -78,11 +77,18 @@ async function openEditModal(id) {
         document.getElementById('edit-perfil-requerido').value = vacante.perfilRequerido;
         document.getElementById('edit-turno').value = vacante.turno;
         document.getElementById('edit-estatus').value = vacante.estatus;
-        document.getElementById('edit-nivel-educativo').value = vacante.nivelEducativo;
         document.getElementById('edit-zona-economica').value = vacante.zonaEconomica;
         document.getElementById('edit-tipo-contrato').value = vacante.tipoContrato;
         document.getElementById('edit-observaciones').value = vacante.observaciones;
         document.getElementById('edit-id').value = id;
+        document.getElementById('edit-nivel-educativo').value = vacante.nivelEducativo;
+        if (vacante.nivelEducativo === 'Secundaria') {
+            document.getElementById('secundaria-fields').style.display = 'block';
+            document.getElementById('edit-materias-secundaria').value = vacante.materiaSecundaria; // Ajustar valores predeterminados según corresponda
+            document.getElementById('edit-horas-secundaria').value = vacante.horasSecundaria; // Ajustar valores predeterminados
+        } else {
+            document.getElementById('secundaria-fields').style.display = 'none';
+        }
         document.getElementById('editModal').style.display = 'block';
     } catch (error) {
         Swal.fire(
@@ -100,7 +106,6 @@ function closeEditModal() {
 async function saveEdit() {
     const id = document.getElementById('edit-id').value;
     const updatedVacante = {
-        // tu código existente para capturar los datos del formulario
         clavePresupuestal: document.getElementById('edit-clave-presupuestal').value,
         municipio: document.getElementById('edit-municipio').value,
         claveCT: document.getElementById('edit-clave-ct').value,
@@ -118,6 +123,12 @@ async function saveEdit() {
         tipoContrato: document.getElementById('edit-tipo-contrato').value,
         observaciones: document.getElementById('edit-observaciones').value
     };
+
+    // Agregar campos de Materia y Horas si el nivel educativo es 'Secundaria'
+    if (document.getElementById('edit-nivel-educativo').value === 'Secundaria') {
+        updatedVacante.materiaSecundaria = document.getElementById('edit-materias-secundaria').value;
+        updatedVacante.horasSecundaria = document.getElementById('edit-horas-secundaria').value;
+    }
 
     try {
         const success = await ipcRenderer.invoke('update-vacante', id, updatedVacante);
@@ -144,6 +155,7 @@ async function saveEdit() {
         );
     }
 }
+
 
 
 

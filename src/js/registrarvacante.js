@@ -5,16 +5,20 @@ document.addEventListener('DOMContentLoaded', function () {
   const nivelEducativo = document.getElementById('nivel-educativo');
   const materiasSecundariaContainer = document.getElementById('materias-secundaria-container');
   const materiasSecundaria = document.getElementById('materias-secundaria');
+  const horasSecundariaContainer = document.getElementById('horas-secundaria-container'); // Agregar esto
 
   // Ocultar el combo de materias al inicio
   materiasSecundariaContainer.style.display = 'none';
+  horasSecundariaContainer.style.display = 'none'; // Agregar esto
 
   nivelEducativo.addEventListener('change', function () {
     if (nivelEducativo.value === 'Secundaria') {
       materiasSecundariaContainer.style.display = 'block';
+      horasSecundariaContainer.style.display = 'block'; // Agregar esto
       materiasSecundaria.setAttribute('required', 'required');
     } else {
       materiasSecundariaContainer.style.display = 'none';
+      horasSecundariaContainer.style.display = 'none'; // Agregar esto
       materiasSecundaria.removeAttribute('required');
     }
   });
@@ -47,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
       estatus: document.getElementById('estatus').value,
       nivelEducativo: document.getElementById('nivel-educativo').value,
       materiaSecundaria: materiasSecundariaContainer.style.display === 'none' ? null : materiasSecundaria.value,
+      horasSecundaria: materiasSecundariaContainer.style.display === 'none' ? null : document.getElementById('horas-secundaria').value, // Nuevo campo
       zonaEconomica: document.getElementById('zona-economica').value,
       tipoContrato: document.querySelector('input[name="tipo-contrato"]:checked').value,
       observaciones: document.getElementById('observaciones').value,

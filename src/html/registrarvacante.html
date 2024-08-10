@@ -95,11 +95,33 @@
             <input type="date" id="fecha-inicio" required>
           </div>
           <div class="form-group">
-            <label for="motivo">Motivo</label>
-            <input type="text" id="motivo" required>
             <label for="fecha-fin">Fecha de Fin</label>
             <input type="date" id="fecha-fin" required>
           </div>
+          <div class="form-group">
+            <label for="motivo">Motivo</label>
+            <select id="motivo" required>
+              <option value="11-41 (Licencia por asusntos particulares)">11-41 (Licencia por asusntos particulares)</option>
+              <option value="11-42 (Licencia por pasar a otro empleo)">11-42 (Licencia por pasar a otro empleo)</option>
+              <option value="11-43 (Licencia por comisión sindical ó elección popular)">11-43 (Licencia por comisión sindical ó elección popular)</option>
+              <option value="11-44 (Licencia por Gravidez)">11-44 (Licencia por Gravidez)</option>
+              <option value="11-48 (Licencia Prepensionaria)">11-48 (Licencia Prepensionaria)</option>
+              <option value="11-51 (Prórroga de Licencia por asuntos particulares)">11-51 (Prórroga de Licencia por asuntos particulares)</option>
+              <option value="11-52 (Prórroga de Licencia por pasar a otro empleo)">11-52 (Prórroga de Licencia por pasar a otro empleo)</option>
+              <option value="11-53 (Prórroga de Licencia por comisión sindical ó elección popular)">11-53 (Prórroga de Licencia por comisión sindical ó elección popular)</option>
+              <option value="Licencia por acuerdo presidencial No. 754">Licencia por acuerdo presidencial No. 754</option>
+              <option value="12-61 (Reanudación de Labores de una Prorroga ó Licencia por asuntos particulares)">12-61 (Reanudación de Labores de una Prorroga ó Licencia por asuntos particulares)</option>
+              <option value="12-62 (Reanudación de Labores de una Prorroga ó Licencia por pasar a otro empleo)">12-62 (Reanudación de Labores de una Prorroga ó Licencia por pasar a otro empleo)</option>
+              <option value="12-63 (Reanudación de Labores de una Prorroga ó Licencia por comisión sindical ó elección popular)">12-63 (Reanudación de Labores de una Prorroga ó Licencia por comisión sindical ó elección popular)</option>
+              <option value="06-31 (baja por Defunción)">06-31 (baja por Defunción)</option>
+              <option value="06-32 (baja por renuncia)">06-32 (baja por renuncia)</option>
+              <option value="06-33 (baja por jubilación)">06-33 (baja por jubilación)</option>
+              <option value="06-34 (baja por Abandono de Empleo)">06-34 (baja por Abandono de Empleo)</option>
+              <option value="06-75 (baja por incapacidad del ISSSTE)">06-75 (baja por incapacidad del ISSSTE)</option>
+              <option value="07-35 (baja por termino de nombramiento)">07-35 (baja por termino de nombramiento)</option>
+              <option value="07-35 (baja por termino de nombramiento)">07-35 (baja por termino de nombramiento)</option>
+              <option value="07-37 (baja por pasar a otro empleo)">07-37 (baja por pasar a otro empleo)</option>
+            </select>
           <div class="form-group">
             <label for="nombre-escuela">Nombre de la escuela</label>
             <input type="text" id="nombre-escuela" required>
@@ -109,9 +131,13 @@
           <div class="form-group">
             <label for="turno">Turno</label>
             <input type="text" id="turno" required>
-            <label for="estatus">Estatus</label>
-            <input type="text" id="estatus" required>
           </div>
+          <div class="form-group">
+            <label for="estatus">Estatus</label>
+            <select id="estatus" required>
+              <option value="Disponible">Disponible</option>
+              <option value="Ocupada">Ocupada</option>
+            </select>
           <div class="form-group">
             <label for="nivel-educativo">Nivel Educativo</label>
             <select id="nivel-educativo" required>
@@ -126,9 +152,29 @@
               <select id="materias-secundaria">
                 <option value="Matematicas">Matemáticas</option>
                 <option value="Espanol">Español</option>
-                <option value="Ciencias">Ciencias</option>
+                <option value="Ciencias I (Biologia)">Ciencias I (Biologia)</option>
+                <option value="Ciencias II (Fisca)">Ciencias I (Fisica)</option>
+                <option value="Ciencias III (Quimica)">Ciencias I (Quimica)</option>
                 <option value="Historia">Historia</option>
                 <option value="Geografia">Geografía</option>
+                <option value="Formacion Civica y Etica">Formacion Civica y Etica</option>
+                <option value="Artes">Artes</option>
+                <option value="Educacion Fisica">Educacion Fisica</option>
+                <option value="Ingles">Ingles</option>
+                <option value="Tutoria">Tutoria</option>
+                <option value="Tecnologias">Tecnologias</option>
+                <option value="Vida Saludable">Vida Saludable</option>
+              </select>
+            </div>
+            <div id="horas-secundaria-container" style="display:none;">
+              <label for="horas-secundaria">Horas</label>
+              <select id="horas-secundaria">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
           </div>
