@@ -9,8 +9,8 @@ require('dotenv').config();
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 1200,
-        height: 900,
+        width: 1350,
+        height: 1150,
         webPreferences: {
             contextIsolation: false,
             enableRemoteModule: false,

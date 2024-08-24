@@ -43,6 +43,8 @@ function displayReport(reportData) {
                 <th>Municipio</th>
                 <th>Nombre de la escuela</th>
                 <th>Nivel Educativo</th>
+                <th class="materia-column">Materia</th>
+                <th class="horas-column">Horas</th>
                 <th>Tipo de contrato</th>
             </tr>
         </thead>
@@ -54,6 +56,8 @@ function displayReport(reportData) {
                     <td>${vacante.municipio}</td>
                     <td>${vacante.nombreEscuela}</td>
                     <td>${vacante.nivelEducativo}</td>
+                    <td class="materia-column">${vacante.materia || ''}</td>
+                    <td class="horas-column">${vacante.horas || ''}</td>
                     <td>${vacante.tipoContrato}</td>
                 </tr>
             `).join('')}
@@ -61,8 +65,44 @@ function displayReport(reportData) {
     `;
     reportResult.appendChild(table);
 
-    // Mostrar el botón de descargar PDF
+    // Inicialmente ocultar las columnas de materia y horas si no son relevantes
+    document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
+        column.style.display = 'none';
+    });
+
+    // Mostrar el botón de descargar PDF y el filtro de nivel educativo
     document.getElementById('download-pdf').style.display = 'block';
+    document.getElementById('filter-nivel').style.display = 'block';
+}
+
+// Cuando se seleccione el nivel educativo en el filtro, mostrar/ocultar columnas relevantes
+document.getElementById('filter-nivel').addEventListener('change', function() {
+    const selectedNivel = this.value;
+
+    if (selectedNivel === 'Secundaria') {
+        document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
+            column.style.display = 'table-cell';
+        });
+    } else {
+        document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
+            column.style.display = 'none';
+        });
+    }
+
+    filterReport(selectedNivel);
+});
+
+// Filtrar el reporte por nivel educativo
+function filterReport(nivel) {
+    const rows = document.querySelectorAll('#report-table tbody tr');
+    rows.forEach(row => {
+        const nivelEducativo = row.querySelector('td:nth-child(5)').textContent;
+        if (nivel === 'Todos' || nivelEducativo === nivel) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
 }
 
 document.getElementById('download-pdf').addEventListener('click', function() {

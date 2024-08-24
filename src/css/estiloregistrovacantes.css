@@ -131,7 +131,7 @@ form {
 .form-group {
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 48%;
   margin-bottom: 20px;
 }
 
@@ -149,7 +149,7 @@ form {
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
-  margin: 5px;
+  margin: 5px 0;
   pointer-events: auto; 
 }
 
