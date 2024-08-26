@@ -56,8 +56,8 @@ function displayReport(reportData) {
                     <td>${vacante.municipio}</td>
                     <td>${vacante.nombreEscuela}</td>
                     <td>${vacante.nivelEducativo}</td>
-                    <td class="materia-column">${vacante.materia || ''}</td>
-                    <td class="horas-column">${vacante.horas || ''}</td>
+                    <td class="materia-column">${vacante.materiaSecundaria || ''}</td>
+                    <td class="horas-column">${vacante.horasSecundaria || ''}</td>
                     <td>${vacante.tipoContrato}</td>
                 </tr>
             `).join('')}
