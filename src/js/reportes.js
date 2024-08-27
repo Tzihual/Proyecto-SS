@@ -71,6 +71,7 @@ function displayReport(reportData) {
     });
 
     // Mostrar el botón de descargar PDF y el filtro de nivel educativo
+    document.getElementById('filter-container').style.display = 'block';
     document.getElementById('download-pdf').style.display = 'block';
     document.getElementById('filter-nivel').style.display = 'block';
 }

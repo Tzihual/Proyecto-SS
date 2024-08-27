@@ -131,6 +131,15 @@ header h1 {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+.form-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 25%;
+  box-sizing: border-box;
+  margin: 5px 0;
+  pointer-events: auto; 
+}
 
 .generate-button {
   width: 100%;

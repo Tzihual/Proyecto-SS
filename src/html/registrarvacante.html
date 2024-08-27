@@ -37,12 +37,12 @@
           </a>
           </li>
           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-           <!--li>
-            <a href="../html/listavacante.html">
-              <img src="../imagenes/volver.png" alt="Lista de Vacantes">
-              <span>MENÚ PRINCIPAL</span>
-          </a>
-          </li-->
+          <li>
+            <a href="#" id="logout-link">
+              <img src="../imagenes/cerrar.png" alt="Cerrar sesión">
+              <span>CERRAR SESIÓN</span>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -213,5 +213,25 @@
   </div>
   <script src="../js/registrarvacante.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.getElementById('logout-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      Swal.fire({
+        title: 'Cerrar Sesión',
+        text: "¿Estás seguro que deseas cerrar sesión?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cerrar Sesión',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '../html/index.html';
+        }
+      });
+    });
+  </script>
+</body>
 </body>
 </html>

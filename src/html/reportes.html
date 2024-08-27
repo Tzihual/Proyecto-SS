@@ -39,12 +39,12 @@
             </a>
           </li>
           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-          <!--li>
-            <a href="../html/listavacante.html">
-              <img src="../imagenes/volver.png" alt="Lista de Vacantes">
-              <span>MENÚ PRINCIPAL</span>
-          </a>
-          </li-->
+          <li>
+            <a href="#" id="logout-link">
+              <img src="../imagenes/cerrar.png" alt="Cerrar sesión">
+              <span>CERRAR SESIÓN</span>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -68,7 +68,7 @@
         </form>
           <br><br>
         <!-- Campo de filtro -->
-  <div class="form-group">
+  <div class="form-group" id="filter-container" style="display:none;">
     <label for="filter-nivel">Filtrar por Nivel Educativo:</label>
     <select id="filter-nivel" style="display:none;">
       <option value="Todos">Todos</option>
@@ -78,10 +78,10 @@
       <option value="Educación Especial">Educación Especial</option>
       <option value="Educación Indígena">Educación Indígena</option>
   </select>
-  
-      </div>
+        </div>
       </div>
       <div id="report-result" class="report-result">
+        
         <!-- reporte -->
       </div>
       <button id="download-pdf" class="download-button" style="display:none;">Guardar como PDF</button>
@@ -89,5 +89,25 @@
   </div>
   
   <script src="../js/reportes.js"></script>
+  <script>
+    document.getElementById('logout-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      Swal.fire({
+        title: 'Cerrar Sesión',
+        text: "¿Estás seguro que deseas cerrar sesión?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cerrar Sesión',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '../html/index.html';
+        }
+      });
+    });
+  </script>
+</body>
 </body>
 </html>

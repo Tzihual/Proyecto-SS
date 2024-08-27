@@ -215,7 +215,7 @@ table td button {
   margin-bottom: 5px;
 }
 
-.modal .form-group input, .modal .form-group textarea {
+.modal .form-group input, .modal .form-group textarea, .modal .form-group select {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;

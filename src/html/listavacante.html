@@ -122,14 +122,21 @@
           <label for="edit-estatus">Estatus</label>
           <input type="text" id="edit-estatus" required>
         </div>
-        <div class="form-group">
-          <label for="edit-nivel-educativo">Nivel Educativo</label>
-          <input type="text" id="edit-nivel-educativo" required>
-        </div>
+        
+          <div class="form-group">
+            <label for="edit-nivel-educativo">Nivel Educativo</label>
+            <select id="edit-nivel-educativo" required>
+              <option value="Preescolar">Preescolar</option>
+              <option value="Primaria">Primaria</option>
+              <option value="Secundaria">Secundaria</option>
+              <option value="EducacionEspecial">Educación Especial</option>
+              <option value="EducacionIndigena">Educación Indígena</option>
+            </select>
+          </div>
         <div class="form-group" id="secundaria-fields" style="display: none;">
           <label for="edit-materias-secundaria">Materia de Secundaria</label>
           <select id="edit-materias-secundaria">
-              <!-- Asumiendo las mismas materias que en el formulario de registro -->
+              
               <option value="Matematicas">Matemáticas</option>
               <option value="Español">Español</option>
               <option value="Ciencias I (Biologia)">Ciencias I (Biologia)</option>
