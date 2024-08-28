@@ -40,7 +40,39 @@ function filterVacantes() {
     );
     renderVacantes(filteredVacantes);
 }
+// Cuando se seleccione el nivel educativo en el filtro, mostrar/ocultar columnas relevantes
+document.getElementById('filter-nivel').addEventListener('change', function() {
+    const selectedNivel = this.value;
 
+    if (selectedNivel === 'Secundaria') {
+        document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
+            column.style.display = 'table-cell';
+        });
+    } else {
+        document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
+            column.style.display = 'none';
+        });
+    }
+
+    filterReport(selectedNivel);
+});
+
+function filterReport(nivel) {
+    const filteredVacantes = allVacantes.filter(vacante =>
+        nivel === 'Todos' || vacante.nivelEducativo === nivel
+    );
+    renderVacantes(filteredVacantes);
+
+    if (nivel === 'Secundaria') {
+        document.querySelectorAll('.materia-column').forEach(column => {
+            column.style.display = 'table-cell';
+        });
+    } else {
+        document.querySelectorAll('.materia-column').forEach(column => {
+            column.style.display = 'none';
+        });
+    }
+}
 function renderVacantes(vacantes) {
     const tbody = document.querySelector('#vacantes-table tbody');
     tbody.innerHTML = ''; // Limpiar el cuerpo de la tabla antes de agregar nuevas filas
