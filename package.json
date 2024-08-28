@@ -5,15 +5,24 @@
   "main": "src/js/main.js",
   "scripts": {
     "start": "electron .",
-    "rebuild": "electron-rebuild -f -w mongodb"
+    "rebuild": "electron-rebuild -f -w mongodb",
+    "dist": "electron-builder"
   },
   "keywords": [
     "electron",
     "mongodb",
     "crud"
   ],
-  "author": "proyecto",
+  "author": "TLG y CAMM",
   "license": "ISC",
+  "build":{
+    "appId":"enupal-electron",
+    "asar":true,
+    "win":{
+      "target":"NSIS",
+      "icon":"build/logo.ico"
+    }
+  },
   "devDependencies": {
     "electron": "^31.2.1",
     "electron-builder": "^24.13.3",
