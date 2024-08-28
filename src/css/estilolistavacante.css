@@ -222,7 +222,13 @@ table td button {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
+.form-group select{
+  width: 25%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 .modal .form-group.full-width {
   width: 100%;
 }
