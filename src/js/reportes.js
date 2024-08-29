@@ -46,6 +46,7 @@ function displayReport(reportData) {
                 <th class="materia-column">Materia</th>
                 <th class="horas-column">Horas</th>
                 <th>Tipo de contrato</th>
+                <th>Necesidad del servicio</th>
             </tr>
         </thead>
         <tbody>
@@ -59,6 +60,7 @@ function displayReport(reportData) {
                     <td class="materia-column">${vacante.materiaSecundaria || ''}</td>
                     <td class="horas-column">${vacante.horasSecundaria || ''}</td>
                     <td>${vacante.tipoContrato}</td>
+                    <td>${vacante.estatus}</td>
                 </tr>
             `).join('')}
         </tbody>
@@ -74,6 +76,7 @@ function displayReport(reportData) {
     document.getElementById('filter-container').style.display = 'block';
     document.getElementById('download-pdf').style.display = 'block';
     document.getElementById('filter-nivel').style.display = 'block';
+    document.getElementById('filter-necesidad-container').style.display = 'block'; // Mostrar el nuevo filtro
 }
 
 // Cuando se seleccione el nivel educativo en el filtro, mostrar/ocultar columnas relevantes
@@ -92,6 +95,21 @@ document.getElementById('filter-nivel').addEventListener('change', function() {
 
     filterReport(selectedNivel);
 });
+
+document.getElementById('filter-necesidad').addEventListener('change', function() {
+    const selectedNecesidad = this.value;
+    
+    const rows = document.querySelectorAll('#report-table tbody tr');
+    rows.forEach(row => {
+      const estatus = row.cells[8].textContent; // Asumiendo que la columna de estatus es la séptima
+      if (selectedNecesidad === 'Todos' || estatus === selectedNecesidad) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+  
 
 // Filtrar el reporte por nivel educativo
 function filterReport(nivel) {
