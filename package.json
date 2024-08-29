@@ -1,12 +1,35 @@
 {
-  "name": "proyecto-ss",
+  "name": "Vacancia",
   "version": "1.0.0",
-  "description": "Electron application with MongoDB",
+  "description": "Aplicación para agilizar el proceso de las vacancias",
   "main": "src/js/main.js",
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w mongodb",
     "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "ittepic",
+    "productName": "Vacancia",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "extraFiles": [
+      {
+        "from": "./.env",
+        "to": ".env"
+      }
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    }
   },
   "keywords": [
     "electron",
@@ -15,21 +38,13 @@
   ],
   "author": "TLG y CAMM",
   "license": "ISC",
-  "build":{
-    "appId":"enupal-electron",
-    "asar":true,
-    "win":{
-      "target":"NSIS",
-      "icon":"build/logo.ico"
-    }
-  },
   "devDependencies": {
-    "electron": "^31.2.1",
+    "electron": "^31.4.0",
     "electron-builder": "^24.13.3",
     "electron-rebuild": "^3.2.9"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "mongodb": "^6.8.0"
-  }
+  } 
 }
