@@ -193,9 +193,13 @@ async function saveEdit() {
     }
 }
 
-
-
-
+document.addEventListener('DOMContentLoaded', function () {
+    const nombreUsuario = localStorage.getItem('usuario');
+    if (nombreUsuario) {
+      document.getElementById('nombre-usuario').textContent = nombreUsuario;
+    }
+  });
+  
 
 async function deleteVacante(id) {
     Swal.fire({

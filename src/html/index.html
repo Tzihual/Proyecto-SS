@@ -47,46 +47,50 @@
     const client = new MongoClient(uri);
 
     async function validarUsuario(username, password) {
-      try {
-        await client.connect();
-        const database = client.db("Proyecto-Vacante");
-        const usuarios = database.collection("usuario");
-        const query = { usuario: username, contraseña: password };
-        const user = await usuarios.findOne(query);
-        return user !== null;
-      } catch (error) {
-        console.error('Error al buscar el usuario:', error);
-        return false;
-      } finally {
-        await client.close();
-      }
-    }
+  try {
+    await client.connect();
+    const database = client.db("Proyecto-Vacante");
+    const usuarios = database.collection("usuario");
+    const query = { usuario: username, contraseña: password };
+    const user = await usuarios.findOne(query);
+    return user; // Retorna el objeto completo
+  } catch (error) {
+    console.error('Error al buscar el usuario:', error);
+    return null; // Retorna null en caso de error
+  } finally {
+    await client.close();
+  }
+}
 
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const usuarioValido = await validarUsuario(username, password);
-      if (usuarioValido) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Autenticación Exitosa',
-          text: '¡Bienvenido al sistema!',
-          confirmButtonText: 'Continuar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = 'listavacante.html';
-          }
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error de Autenticación',
-          text: 'Usuario o contraseña incorrectos. Intente de nuevo.'
-        });
+  e.preventDefault();
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const usuario = await validarUsuario(username, password); // Asumiendo que ahora esto retorna el objeto de usuario completo
+
+  if (usuario) {
+    localStorage.setItem('usuario', usuario.usuario); // Guarda el nombre de usuario en el almacenamiento local
+    Swal.fire({
+      icon: 'success',
+      title: 'Autenticación Exitosa',
+      text: '¡Bienvenido al sistema, ' + usuario.usuario + '!', // Usa usuario.usuario para mostrar el nombre
+      confirmButtonText: 'Continuar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'listavacante.html';
       }
     });
-  </script>
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error de Autenticación',
+      text: 'Usuario o contraseña incorrectos. Intente de nuevo.'
+    });
+  }
+});
+
+ 
+ </script>
 </body>
 </html>
 
