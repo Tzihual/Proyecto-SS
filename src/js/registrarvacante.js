@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       return;
     }
-
+ 
     const formData = {
       clavePresupuestal: document.getElementById('clave-presupuestal').value,
       municipio: document.getElementById('municipio').value,
@@ -75,6 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const nombreUsuario = localStorage.getItem('usuario');
+  if (nombreUsuario) {
+    document.getElementById('nombre-usuario').textContent = nombreUsuario;
+  }
 });
 
 

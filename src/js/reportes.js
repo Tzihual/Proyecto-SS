@@ -110,6 +110,13 @@ document.getElementById('filter-necesidad').addEventListener('change', function(
     });
   });
   
+  document.addEventListener('DOMContentLoaded', function () {
+    const nombreUsuario = localStorage.getItem('usuario');
+    if (nombreUsuario) {
+      document.getElementById('nombre-usuario').textContent = nombreUsuario;
+    }
+  });
+  
 
 // Filtrar el reporte por nivel educativo
 function filterReport(nivel) {
