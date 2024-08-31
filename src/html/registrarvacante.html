@@ -60,7 +60,7 @@
           </div>
           <div class="form-group">
             <label for="municipio">Municipio</label>
-            <select id="municipio">
+            <select id="municipio" required>
               <option value="">Seleccione un municipio</option>
               <option value="Acaponeta">Acaponeta</option>
               <option value="Ahuacatlán">Ahuacatlán</option>
@@ -180,10 +180,11 @@
                 <option value="Tecnologias">Tecnologias</option>
                 <option value="Vida Saludable">Vida Saludable</option>
               </select>
-            </div>
+            
             <div class="form-group" id="horas-secundaria-container" style="display:none;">
               <label for="horas-secundaria">Horas</label>
-              <select id="horas-secundaria">
+              <select id="horas-secundaria" required>
+                <option value="">Selecciona la cantidad de horas</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -192,6 +193,7 @@
                 <option value="6">6</option>
               </select>
             </div>
+          </div>
           <div class="form-group">
             <label for="zona-economica">Zona Económica</label>
             <select id="zona-economica" required>
