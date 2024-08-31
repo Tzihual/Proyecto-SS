@@ -97,7 +97,24 @@ function renderVacantes(vacantes) {
         tbody.appendChild(tr);
     });
 }
+// Agregar un evento de cambio para mostrar/ocultar campos en el modal de edición
+document.getElementById('edit-nivel-educativo').addEventListener('change', function () {
+    const selectedNivel = this.value;
+    const secundariaFields = document.getElementById('secundaria-fields');
 
+    if (selectedNivel === 'Secundaria') {
+        secundariaFields.style.display = 'block';
+        document.getElementById('edit-materias-secundaria').setAttribute('required', 'required');
+        document.getElementById('edit-horas-secundaria').setAttribute('required', 'required');
+    } else {
+        secundariaFields.style.display = 'none';
+        // Poner en null los valores de materias y horas
+        document.getElementById('edit-materias-secundaria').value = null;
+        document.getElementById('edit-horas-secundaria').value = null;
+        document.getElementById('edit-materias-secundaria').removeAttribute('required');
+        document.getElementById('edit-horas-secundaria').removeAttribute('required');
+    }
+});
 
 async function openEditModal(id) {
     try {
@@ -119,13 +136,21 @@ async function openEditModal(id) {
         document.getElementById('edit-observaciones').value = vacante.observaciones;
         document.getElementById('edit-id').value = id;
         document.getElementById('edit-nivel-educativo').value = vacante.nivelEducativo;
+        const secundariaFields = document.getElementById('secundaria-fields');
         if (vacante.nivelEducativo === 'Secundaria') {
-            document.getElementById('secundaria-fields').style.display = 'block';
-            document.getElementById('edit-materias-secundaria').value = vacante.materiaSecundaria; // Ajustar valores predeterminados según corresponda
-            document.getElementById('edit-horas-secundaria').value = vacante.horasSecundaria; // Ajustar valores predeterminados
+            secundariaFields.style.display = 'block';
+            document.getElementById('edit-materias-secundaria').value = vacante.materiaSecundaria || '';
+            document.getElementById('edit-horas-secundaria').value = vacante.horasSecundaria || '';
+            document.getElementById('edit-materias-secundaria').setAttribute('required', 'required');
+            document.getElementById('edit-horas-secundaria').setAttribute('required', 'required');
         } else {
-            document.getElementById('secundaria-fields').style.display = 'none';
+            secundariaFields.style.display = 'none';
+            document.getElementById('edit-materias-secundaria').value = null;
+            document.getElementById('edit-horas-secundaria').value = null;
+            document.getElementById('edit-materias-secundaria').removeAttribute('required');
+            document.getElementById('edit-horas-secundaria').removeAttribute('required');
         }
+
         document.getElementById('editModal').style.display = 'block';
     } catch (error) {
         Swal.fire(

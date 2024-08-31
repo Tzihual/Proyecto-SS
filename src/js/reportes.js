@@ -1,5 +1,8 @@
 const { ipcRenderer } = require('electron');
 
+
+
+
 document.getElementById('report-form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -74,9 +77,11 @@ function displayReport(reportData) {
 
     // Mostrar el botón de descargar PDF y el filtro de nivel educativo
     document.getElementById('filter-container').style.display = 'block';
-    document.getElementById('download-pdf').style.display = 'block';
+    document.getElementById('download').style.display = 'block';
     document.getElementById('filter-nivel').style.display = 'block';
-    document.getElementById('filter-necesidad-container').style.display = 'block'; // Mostrar el nuevo filtro
+    document.getElementById('filter-necesidad-container').style.display = 'block'; 
+    // Mostrar el select y el botón de descarga una vez generado el reporte
+document.getElementById('download-format-container').style.display = 'block';
 }
 
 // Cuando se seleccione el nivel educativo en el filtro, mostrar/ocultar columnas relevantes
@@ -131,8 +136,16 @@ function filterReport(nivel) {
     });
 }
 
-document.getElementById('download-pdf').addEventListener('click', function() {
-    const { jsPDF } = window.jspdf;
+document.getElementById('download').addEventListener('click', function() {
+    const format = document.getElementById('download-format').value;
+    if (format === 'pdf') {
+        downloadPDF();
+    } else if (format === 'excel') {
+        downloadExcel();
+    }
+});
+
+   function downloadPDF(){ const { jsPDF } = window.jspdf;
     html2canvas(document.getElementById('report-table')).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
@@ -154,4 +167,36 @@ document.getElementById('download-pdf').addEventListener('click', function() {
         // Descargar el PDF
         pdf.save('reporte_vacantes.pdf');
     });
-});
+}
+
+
+function downloadExcel() {
+    // Obtener la tabla de HTML por su ID
+    const table = document.getElementById('report-table');
+    console.log(table);
+
+    // Verificar que la tabla existe y que XLSX está disponible
+    console.log(XLSX.utils);
+    if (table && typeof XLSX !== 'undefined') {
+        // Crear un nuevo libro de trabajo
+        const workbook = XLSX.utils.book_new();
+
+        // Convertir la tabla HTML a una hoja de cálculo
+        const worksheet = XLSX.utils.table_to_sheet(table);
+
+        // Agregar la hoja de cálculo al libro de trabajo
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte");
+
+        // Escribir el archivo Excel
+        XLSX.writeFile(workbook, 'reporte_vacantes.xlsx');
+    } else {
+        // Mostrar un mensaje de error en caso de que la tabla o XLSX no estén definidos
+        console.error('Error: XLSX o la tabla no está definida.');
+    }
+}
+
+
+
+
+
+

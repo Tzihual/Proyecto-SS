@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Generar Reporte</title>
-  <link rel="stylesheet" href="../css/estiloreportes.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <!--script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script-->
-
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>Generar Reporte</title>
+    <link rel="stylesheet" href="../css/estiloreportes.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  </head>
 <body>
   <div class="container">
     <div class="sidebar">
@@ -93,8 +92,15 @@
         
         <!-- reporte -->
       </div>
-      <button id="download-pdf" class="download-button" style="display:none;">Guardar como PDF</button>
-    
+      <!--button id="download-pdf" class="download-button" style="display:none;">Guardar como PDF</button-->
+      <div class="form-group" id="download-format-container" style="display:none;">
+        <label for="download-format">Seleccionar Formato de Descarga:</label>
+        <select id="download-format" required>
+          <option value="pdf">PDF</option>
+          <option value="excel">Excel</option>
+        </select>
+      </div>
+      <button id="download" class="download-button" style="display:none;">Descargar</button>     
     </div>
   </div>
   
