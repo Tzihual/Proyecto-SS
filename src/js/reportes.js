@@ -8,9 +8,16 @@ document.getElementById('report-form').addEventListener('submit', async function
 
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
+    const today = new Date().toISOString().split('T')[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
+
 
     if (new Date(startDate) > new Date(endDate)) {
-        alert('Error', 'La fecha de inicio no puede ser mayor que la fecha de fin', 'error');
+        alert('Error, la fecha de inicio no puede ser mayor que la fecha de fin', 'La fecha de inicio no puede ser mayor que la fecha de fin', 'error');
+        return;
+    }
+
+    if (endDate > today) {
+        alert('Error, la fecha de fin no puede ser posterior al día de hoy', 'La fecha de fin no puede ser posterior al día de hoy', 'error');
         return;
     }
 
@@ -60,21 +67,21 @@ function displayReport(reportData) {
                     <td>${vacante.municipio}</td>
                     <td>${vacante.nombreEscuela}</td>
                     <td>${vacante.nivelEducativo}</td>
-                    <td class="materia-column">${vacante.materiaSecundaria || ''}</td>
-                    <td class="horas-column">${vacante.horasSecundaria || ''}</td>
-                    <td>${vacante.tipoContrato}</td>
+                     <td class="materia-column">${vacante.nivelEducativo === 'Secundaria' ? vacante.materiaSecundaria || 'N/A' : 'N/A'}</td>
+                    <td class="horas-column">${vacante.nivelEducativo === 'Secundaria' ? vacante.horasSecundaria || 'N/A' : 'N/A'}</td>
+                     <td>${vacante.tipoContrato}</td>
                     <td>${vacante.estatus}</td>
                 </tr>
             `).join('')}
         </tbody>
     `;
     reportResult.appendChild(table);
-
+/*
     // Inicialmente ocultar las columnas de materia y horas si no son relevantes
     document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
         column.style.display = 'none';
     });
-
+*/
     // Mostrar el botón de descargar PDF y el filtro de nivel educativo
     document.getElementById('filter-container').style.display = 'block';
     document.getElementById('download').style.display = 'block';
