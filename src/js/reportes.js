@@ -145,6 +145,8 @@ document.getElementById('download').addEventListener('click', function() {
     }
 });
 
+
+
    function downloadPDF(){ const { jsPDF } = window.jspdf;
     html2canvas(document.getElementById('report-table')).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
@@ -169,31 +171,39 @@ document.getElementById('download').addEventListener('click', function() {
     });
 }
 
+const ExcelJS = require('exceljs');
 
 function downloadExcel() {
-    // Obtener la tabla de HTML por su ID
     const table = document.getElementById('report-table');
-    console.log(table);
+    if (table) {
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Reporte');
 
-    // Verificar que la tabla existe y que XLSX está disponible
-    console.log(XLSX.utils);
-    if (table && typeof XLSX !== 'undefined') {
-        // Crear un nuevo libro de trabajo
-        const workbook = XLSX.utils.book_new();
+        // Crear la fila de encabezado
+        const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText);
+        worksheet.addRow(headers);
 
-        // Convertir la tabla HTML a una hoja de cálculo
-        const worksheet = XLSX.utils.table_to_sheet(table);
+        // Crear las filas de datos solo para las filas visibles
+        const rows = Array.from(table.querySelectorAll('tr')).slice(1).filter(row => row.style.display !== 'none').map(tr => {
+            return Array.from(tr.querySelectorAll('td')).map(td => td.innerText);
+        });
+        rows.forEach(row => worksheet.addRow(row));
 
-        // Agregar la hoja de cálculo al libro de trabajo
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte");
-
-        // Escribir el archivo Excel
-        XLSX.writeFile(workbook, 'reporte_vacantes.xlsx');
+        // Descargar el archivo
+        workbook.xlsx.writeBuffer().then(buffer => {
+            const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'reporte_vacantes.xlsx';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
     } else {
-        // Mostrar un mensaje de error en caso de que la tabla o XLSX no estén definidos
-        console.error('Error: XLSX o la tabla no está definida.');
+        console.error('Error: la tabla no está definida.');
     }
 }
+
 
 
 
