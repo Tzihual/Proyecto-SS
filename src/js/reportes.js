@@ -12,22 +12,37 @@ document.getElementById('report-form').addEventListener('submit', async function
 
 
     if (new Date(startDate) > new Date(endDate)) {
-        alert('Error, la fecha de inicio no puede ser mayor que la fecha de fin', 'La fecha de inicio no puede ser mayor que la fecha de fin', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La fecha de inicio no puede ser mayor que la fecha de fin',
+        });
         return;
     }
+    
 
     if (endDate > today) {
-        alert('Error, la fecha de fin no puede ser posterior al día de hoy', 'La fecha de fin no puede ser posterior al día de hoy', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La fecha de fin no puede ser posterior al día de hoy',
+        });
         return;
     }
+    
 
     try {
         const reportData = await fetchReportData(startDate, endDate);
         displayReport(reportData);
     } catch (error) {
         console.error('Error al generar el reporte:', error);
-        alert('Error', 'Error al generar el reporte', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al generar el reporte',
+        });
     }
+    
 });
 
 async function fetchReportData(startDate, endDate) {
