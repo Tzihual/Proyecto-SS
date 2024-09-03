@@ -21,14 +21,14 @@ document.getElementById('report-form').addEventListener('submit', async function
     }
     
 
-    if (endDate > today) {
+   /* if (endDate > today) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'La fecha de fin no puede ser posterior al día de hoy',
         });
         return;
-    }
+    }*/
     
 
     try {
