@@ -8,8 +8,8 @@ document.getElementById('report-form').addEventListener('submit', async function
 
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
-    const today = new Date().toISOString().split('T')[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
-
+    const today = new Date();
+    //.toISOString().split('T')[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
 
     if (new Date(startDate) > new Date(endDate)) {
         Swal.fire({
@@ -72,6 +72,7 @@ function displayReport(reportData) {
                 <th class="horas-column">Horas</th>
                 <th>Tipo de contrato</th>
                 <th>Necesidad del servicio</th>
+                <th>Observaciones</th>
             </tr>
         </thead>
         <tbody>
@@ -86,6 +87,7 @@ function displayReport(reportData) {
                     <td class="horas-column">${vacante.nivelEducativo === 'Secundaria' ? vacante.horasSecundaria || 'N/A' : 'N/A'}</td>
                      <td>${vacante.tipoContrato}</td>
                     <td>${vacante.estatus}</td>
+                    <td>${vacante.observaciones}</td>
                 </tr>
             `).join('')}
         </tbody>
