@@ -35,12 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       return;
     }
-    // Obtén la fecha actual en UTC
-let fechaUTC = new Date();
-
-// Convierte la fecha UTC a la hora local
-let fechaLocal = new Date(fechaUTC.toLocaleString('en-US', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }));
-
+    let fechaLocal = new Date();
     const formData = {
       clavePresupuestal: document.getElementById('clave-presupuestal').value,
       municipio: document.getElementById('municipio').value,
