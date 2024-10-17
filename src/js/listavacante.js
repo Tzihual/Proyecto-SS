@@ -57,6 +57,20 @@ document.getElementById('filter-nivel').addEventListener('change', function() {
     filterReport(selectedNivel);
 });
 
+document.getElementById('edit-materias-secundaria').addEventListener('change', function () {
+    const selectedMateria = this.value;
+    const detalleMateriaContainer = document.getElementById('edit-detalle-materia-container');
+
+    if (selectedMateria === 'Artes' || selectedMateria === 'Tecnologias') {
+        detalleMateriaContainer.style.display = 'block';
+        document.getElementById('edit-detalle-materia').setAttribute('required', 'required');
+    } else {
+        detalleMateriaContainer.style.display = 'none';
+        document.getElementById('edit-detalle-materia').removeAttribute('required');
+        document.getElementById('edit-detalle-materia').value = '';
+    }
+});
+
 function filterReport(nivel) {
     const filteredVacantes = allVacantes.filter(vacante =>
         nivel === 'Todos' || vacante.nivelEducativo === nivel
@@ -136,6 +150,7 @@ async function openEditModal(id) {
         document.getElementById('edit-observaciones').value = vacante.observaciones;
         document.getElementById('edit-id').value = id;
         document.getElementById('edit-nivel-educativo').value = vacante.nivelEducativo;
+
         const secundariaFields = document.getElementById('secundaria-fields');
         if (vacante.nivelEducativo === 'Secundaria') {
             secundariaFields.style.display = 'block';
@@ -143,12 +158,23 @@ async function openEditModal(id) {
             document.getElementById('edit-horas-secundaria').value = vacante.horasSecundaria || '';
             document.getElementById('edit-materias-secundaria').setAttribute('required', 'required');
             document.getElementById('edit-horas-secundaria').setAttribute('required', 'required');
+            
+            // Manejo de "Especifique el tipo"
+            if (vacante.materiaSecundaria === 'Artes' || vacante.materiaSecundaria === 'Tecnologias') {
+                document.getElementById('edit-detalle-materia-container').style.display = 'block';
+                document.getElementById('edit-detalle-materia').value = vacante.detalleMateria || '';
+            } else {
+                document.getElementById('edit-detalle-materia-container').style.display = 'none';
+                document.getElementById('edit-detalle-materia').value = '';
+            }
+
         } else {
             secundariaFields.style.display = 'none';
             document.getElementById('edit-materias-secundaria').value = null;
             document.getElementById('edit-horas-secundaria').value = null;
             document.getElementById('edit-materias-secundaria').removeAttribute('required');
             document.getElementById('edit-horas-secundaria').removeAttribute('required');
+            document.getElementById('edit-detalle-materia-container').style.display = 'none'; // Ocultar el detalle de materia si no es secundaria
         }
 
         document.getElementById('editModal').style.display = 'block';
@@ -160,6 +186,7 @@ async function openEditModal(id) {
         );
     }
 }
+
 
 function closeEditModal() {
     document.getElementById('editModal').style.display = 'none';
@@ -186,10 +213,15 @@ async function saveEdit() {
         observaciones: document.getElementById('edit-observaciones').value
     };
 
-    // Agregar campos de Materia y Horas si el nivel educativo es 'Secundaria'
     if (document.getElementById('edit-nivel-educativo').value === 'Secundaria') {
         updatedVacante.materiaSecundaria = document.getElementById('edit-materias-secundaria').value;
         updatedVacante.horasSecundaria = document.getElementById('edit-horas-secundaria').value;
+
+        if (updatedVacante.materiaSecundaria === 'Artes' || updatedVacante.materiaSecundaria === 'Tecnologias') {
+            updatedVacante.detalleMateria = document.getElementById('edit-detalle-materia').value;
+        } else {
+            updatedVacante.detalleMateria = null;
+        }
     }
 
     try {
@@ -217,6 +249,7 @@ async function saveEdit() {
         );
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const nombreUsuario = localStorage.getItem('usuario');

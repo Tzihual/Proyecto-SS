@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="../css/estilolistavacante.css">
   <!-- SweetAlert2 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
 </head>
 <body>
   <div class="container">
@@ -19,7 +18,6 @@
         <img src="../imagenes/usuario.png" alt="Usuario">
         <span id="nombre-usuario">Administrador</span>
       </div>
-      
       <nav>
         <ul>
           <li>
@@ -29,14 +27,16 @@
             </a>
           </li>
           <li>
-            <a href="../html/listavacante.html">            <img src="../imagenes/cv.png" alt="Buscar Vacante">
-            <span>BUSCAR VACANTE</span>
-          </a>
+            <a href="../html/listavacante.html">
+              <img src="../imagenes/cv.png" alt="Buscar Vacante">
+              <span>BUSCAR VACANTE</span>
+            </a>
           </li>
           <li>
-            <a href="../html/reportes.html">            <img src="../imagenes/reporte.png" alt="Reportes">
-            <span>REPORTES</span>
-          </a>
+            <a href="../html/reportes.html">
+              <img src="../imagenes/reporte.png" alt="Reportes">
+              <span>REPORTES</span>
+            </a>
           </li>
           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           <li>
@@ -60,41 +60,40 @@
           <img src="../imagenes/lupa.png" class="search-icon" alt="Buscar">
         </div>
         <br><br>
-          <!-- Campo de filtro -->
-  <div class="form-group" id="filter-container">
-    <label for="filter-nivel">Filtrar por Nivel Educativo:</label>
-    <select  id="filter-nivel" >
-      <option value="Todos">Todos</option>
-      <option value="Preescolar">Preescolar</option>
-      <option value="Primaria">Primaria</option>
-      <option value="Secundaria">Secundaria</option>
-      <option value="Educación Especial">Educación Especial</option>
-      <option value="Educación Indígena">Educación Indígena</option>
-  </select>
-  </div>
+        <!-- Campo de filtro -->
+        <div class="form-group" id="filter-container">
+          <label for="filter-nivel">Filtrar por Nivel Educativo:</label>
+          <select id="filter-nivel">
+            <option value="Todos">Todos</option>
+            <option value="Preescolar">Preescolar</option>
+            <option value="Primaria">Primaria</option>
+            <option value="Secundaria">Secundaria</option>
+            <option value="Educación Especial">Educación Especial</option>
+            <option value="Educación Indígena">Educación Indígena</option>
+          </select>
+        </div>
         <br><br>
         <table id="vacantes-table">
           <thead>
-              <tr>
-                  <th>Clave Presupuestal</th>
-                  <th>Clave del C.T</th>
-                  <th>Municipio</th>
-                  <th>Nombre de la escuela</th>
-                  <th>Nivel Educativo</th>
-                  <th>Materia (Secundaria)</th>
-                  <th>Tipo de contrato</th>
-                  <th>Acciones</th>
-              </tr>
+            <tr>
+              <th>Clave Presupuestal</th>
+              <th>Clave del C.T</th>
+              <th>Municipio</th>
+              <th>Nombre de la escuela</th>
+              <th>Nivel Educativo</th>
+              <th>Materia (Secundaria)</th>
+              <th>Tipo de contrato</th>
+              <th>Acciones</th>
+            </tr>
           </thead>
           <tbody>
-              <!-- Vacantes se renderizarán aquí -->
+            <!-- Vacantes se renderizarán aquí -->
           </tbody>
-      </table>
-      
+        </table>
       </div>
     </div>
   </div>
-  
+
   <!-- Modal de Edición -->
   <div id="editModal" class="modal">
     <div class="modal-content">
@@ -103,34 +102,33 @@
         <div class="form-group">
           <label for="edit-clave-presupuestal">Clave Presupuestal</label>
           <input type="text" id="edit-clave-presupuestal" required>
-          </div>
-          <div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="edit-municipio">Municipio</label>
-            <select id="edit-municipio" required>
-              <option value="">Seleccione un municipio</option>
-              <option value="Acaponeta">Acaponeta</option>
-              <option value="Ahuacatlán">Ahuacatlán</option>
-              <option value="Amatlán de Cañas">Amatlán de Cañas</option>
-              <option value="Bahía de Banderas">Bahía de Banderas</option>
-              <option value="Compostela">Compostela</option>
-              <option value="Del Nayar">Del Nayar</option>
-              <option value="Huajicori">Huajicori</option>
-              <option value="Ixtlán del Río">Ixtlán del Río</option>
-              <option value="Jala">Jala</option>
-              <option value="La Yesca">La Yesca</option>
-              <option value="Rosamorada">Rosamorada</option>
-              <option value="Ruíz">Ruíz</option>
-              <option value="San Blas">San Blas</option>
-              <option value="San Pedro Lagunillas">San Pedro Lagunillas</option>
-              <option value="Santa María del Oro">Santa María del Oro</option>
-              <option value="Santiago Ixcuintla">Santiago Ixcuintla</option>
-              <option value="Tecuala">Tecuala</option>
-              <option value="Tepic">Tepic</option>
-              <option value="Tuxpan">Tuxpan</option>
-              <option value="Xalisco">Xalisco</option>
-            </select>
-          </div>
-        
+          <select id="edit-municipio" required>
+            <option value="">Seleccione un municipio</option>
+            <option value="Acaponeta">Acaponeta</option>
+            <option value="Ahuacatlán">Ahuacatlán</option>
+            <option value="Amatlán de Cañas">Amatlán de Cañas</option>
+            <option value="Bahía de Banderas">Bahía de Banderas</option>
+            <option value="Compostela">Compostela</option>
+            <option value="Del Nayar">Del Nayar</option>
+            <option value="Huajicori">Huajicori</option>
+            <option value="Ixtlán del Río">Ixtlán del Río</option>
+            <option value="Jala">Jala</option>
+            <option value="La Yesca">La Yesca</option>
+            <option value="Rosamorada">Rosamorada</option>
+            <option value="Ruíz">Ruíz</option>
+            <option value="San Blas">San Blas</option>
+            <option value="San Pedro Lagunillas">San Pedro Lagunillas</option>
+            <option value="Santa María del Oro">Santa María del Oro</option>
+            <option value="Santiago Ixcuintla">Santiago Ixcuintla</option>
+            <option value="Tecuala">Tecuala</option>
+            <option value="Tepic">Tepic</option>
+            <option value="Tuxpan">Tuxpan</option>
+            <option value="Xalisco">Xalisco</option>
+          </select>
+        </div>
         <div class="form-group">
           <label for="edit-clave-ct">Clave del C.T</label>
           <input type="text" id="edit-clave-ct" required>
@@ -142,8 +140,8 @@
         <div class="form-group">
           <label for="edit-funcion">Función</label>
           <input type="text" id="edit-funcion" required>
-          </div>
-          <div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="edit-fecha-inicio">Fecha Inicio</label>
           <input type="date" id="edit-fecha-inicio" required>
         </div>
@@ -160,36 +158,35 @@
             <option value="11-52 (Prórroga de Licencia por pasar a otro empleo)">11-52 (Prórroga de Licencia por pasar a otro empleo)</option>
             <option value="11-53 (Prórroga de Licencia por comisión sindical ó elección popular)">11-53 (Prórroga de Licencia por comisión sindical ó elección popular)</option>
             <option value="Licencia por acuerdo presidencial No. 754">Licencia por acuerdo presidencial No. 754</option>
-            <option value="12-61 (Reanudación de Labores de una Prorroga ó Licencia por asuntos particulares)">12-61 (Reanudación de Labores de una Prorroga ó Licencia por asuntos particulares)</option>
-            <option value="12-62 (Reanudación de Labores de una Prorroga ó Licencia por pasar a otro empleo)">12-62 (Reanudación de Labores de una Prorroga ó Licencia por pasar a otro empleo)</option>
-            <option value="12-63 (Reanudación de Labores de una Prorroga ó Licencia por comisión sindical ó elección popular)">12-63 (Reanudación de Labores de una Prorroga ó Licencia por comisión sindical ó elección popular)</option>
+            <option value="12-61 (Reanudación de Labores de una Prorroga ó Licencia por asuntos particulares)">12-61 (Reanudación de Labores de una Prórroga o Licencia por asuntos particulares)</option>
+            <option value="12-62 (Reanudación de Labores de una Prórroga o Licencia por pasar a otro empleo)">12-62 (Reanudación de Labores de una Prórroga o Licencia por pasar a otro empleo)</option>
+            <option value="12-63 (Reanudación de Labores de una Prórroga o Licencia por comisión sindical o elección popular)">12-63 (Reanudación de Labores de una Prórroga o Licencia por comisión sindical o elección popular)</option>
             <option value="06-31 (baja por Defunción)">06-31 (baja por Defunción)</option>
             <option value="06-32 (baja por renuncia)">06-32 (baja por renuncia)</option>
             <option value="06-33 (baja por jubilación)">06-33 (baja por jubilación)</option>
             <option value="06-34 (baja por Abandono de Empleo)">06-34 (baja por Abandono de Empleo)</option>
             <option value="06-75 (baja por incapacidad del ISSSTE)">06-75 (baja por incapacidad del ISSSTE)</option>
-            <option value="07-35 (baja por termino de nombramiento)">07-35 (baja por termino de nombramiento)</option>
-            <option value="07-35 (baja por termino de nombramiento)">07-35 (baja por termino de nombramiento)</option>
+            <option value="07-35 (baja por término de nombramiento)">07-35 (baja por término de nombramiento)</option>
             <option value="07-37 (baja por pasar a otro empleo)">07-37 (baja por pasar a otro empleo)</option>
           </select>
-          </div>
-          <div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="edit-fecha-fin">Fecha de Fin</label>
           <input type="date" id="edit-fecha-fin" required>
         </div>
         <div class="form-group">
           <label for="edit-nombre-escuela">Nombre de la escuela</label>
           <input type="text" id="edit-nombre-escuela" required>
-          </div>
-          <div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="edit-perfil-requerido">Perfil requerido</label>
           <input type="text" id="edit-perfil-requerido">
         </div>
         <div class="form-group">
           <label for="edit-turno">Turno</label>
           <input type="text" id="edit-turno" required>
-          </div>
-          <div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="edit-estatus">Necesidad del Servicio</label>
           <select id="edit-estatus">
             <option value="">Seleccione una opción</option>
@@ -197,52 +194,50 @@
             <option value="No">No</option>
           </select>
         </div>
-        
-          <div class="form-group">
-            <label for="edit-nivel-educativo">Nivel Educativo</label>
-            <select id="edit-nivel-educativo" required>
-              <option value="">Seleccione un nivel educativo</option>
-              <option value="Preescolar">Preescolar</option>
-              <option value="Primaria">Primaria</option>
-              <option value="Secundaria">Secundaria</option>
-              <option value="Educación Especial">Educación Especial</option>
-              <option value="Educación Indígena">Educación Indígena</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label for="edit-nivel-educativo">Nivel Educativo</label>
+          <select id="edit-nivel-educativo" required>
+            <option value="">Seleccione un nivel educativo</option>
+            <option value="Preescolar">Preescolar</option>
+            <option value="Primaria">Primaria</option>
+            <option value="Secundaria">Secundaria</option>
+            <option value="Educación Especial">Educación Especial</option>
+            <option value="Educación Indígena">Educación Indígena</option>
+          </select>
+        </div>
+
+        <!-- Este es el nuevo campo para especificar el tipo de materia (solo para Artes y Tecnologías) -->
+        <div class="form-group" id="edit-detalle-materia-container" style="display:none;">
+          <label for="edit-detalle-materia">Especifique el tipo</label>
+          <input type="text" id="edit-detalle-materia">
+        </div>
+
         <div class="form-group" id="secundaria-fields" style="display: none;">
           <label for="edit-materias-secundaria">Materia de Secundaria</label>
           <select id="edit-materias-secundaria" required>
-              <option value="">Seleccione una materia</option>   
-              <option value="Matematicas">Matemáticas</option>
-              <option value="Español">Español</option>
-              <option value="Ciencias I (Biologia)">Ciencias I (Biologia)</option>
-              <option value="Ciencias II (Fisca)">Ciencias I (Fisica)</option>
-              <option value="Ciencias III (Quimica)">Ciencias I (Quimica)</option>
-              <option value="Historia">Historia</option>
-              <option value="Geografia">Geografía</option>
-              <option value="Formacion Civica y Etica">Formacion Civica y Etica</option>
-              <option value="Artes">Artes</option>
-              <option value="Educacion Fisica">Educacion Fisica</option>
-              <option value="Ingles">Ingles</option>
-              <option value="Tutoria">Tutoria</option>
-              <option value="Tecnologias">Tecnologias</option>
-              <option value="Vida Saludable">Vida Saludable</option>
+            <option value="">Seleccione una materia</option>
+            <option value="Matematicas">Matemáticas</option>
+            <option value="Español">Español</option>
+            <option value="Ciencias I (Biologia)">Ciencias I (Biología)</option>
+            <option value="Ciencias II (Fisica)">Ciencias II (Física)</option>
+            <option value="Ciencias III (Quimica)">Ciencias III (Química)</option>
+            <option value="Historia">Historia</option>
+            <option value="Geografia">Geografía</option>
+            <option value="Formacion Civica y Etica">Formación Cívica y Ética</option>
+            <option value="Artes">Artes</option>
+            <option value="Educacion Fisica">Educación Física</option>
+            <option value="Ingles">Inglés</option>
+            <option value="Tutoria">Tutoría</option>
+            <option value="Tecnologias">Tecnologías</option>
+            <option value="Vida Saludable">Vida Saludable</option>
           </select>
-          
-          <div class="form-group">
-          <label for="edit-horas-secundaria">Horas</label>
-          <input type="text" id="edit-horas-secundaria">
-          <!--select id="edit-horas-secundaria" required>
-              <option value="">Selecciona la cantidad de horas</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-          </select-->
-      </div> 
-    </div>
+
+          <div class="form-group" id="edit-horas-secundaria-container" style="display: none;">
+            <label for="edit-horas-secundaria">Horas</label>
+            <input type="text" id="edit-horas-secundaria">
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="edit-zona-economica">Zona Económica</label>
           <select id="edit-zona-economica">
@@ -251,13 +246,13 @@
             <option value="100">100</option>
           </select>
         </div>
-       <div class="form-group">
-  <label for="edit-tipo-contrato">Tipo de Contrato</label>
-  <select id="edit-tipo-contrato" required>
-    <option value="Temporal">Temporal</option>
-    <option value="Definitiva">Definitiva</option>
-  </select>
-</div>
+        <div class="form-group">
+          <label for="edit-tipo-contrato">Tipo de Contrato</label>
+          <select id="edit-tipo-contrato" required>
+            <option value="Temporal">Temporal</option>
+            <option value="Definitiva">Definitiva</option>
+          </select>
+        </div>
         <div class="form-group full-width">
           <label for="edit-observaciones">Observaciones</label>
           <textarea id="edit-observaciones"></textarea>
@@ -267,7 +262,8 @@
         <button type="button" class="cancel-button" onclick="closeEditModal()">Cancelar</button>
       </form>
     </div>
-  
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../js/listavacante.js"></script>
   <script>
@@ -291,4 +287,3 @@
   </script>
 </body>
 </html>
-
