@@ -102,11 +102,16 @@ ipcMain.handle('get-report-data', async (event, { startDate, endDate }) => {
         const start = new Date(startDate);
         const end = new Date(endDate);
         end.setHours(23, 59, 59, 999);
+
+        // Convert the date to ISO format strings for comparison
+        const startISO = start.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+        const endISO = end.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+        console.log(`Fetching reports from ${startISO} to ${endISO}`);
+        // Query for records where fechaRegistro is within the date range
         const reportData = await db.collection('vacante').find({
-            
             fechaRegistro: {
-                $gte: start,
-                $lte: end
+                $gte: startISO,
+                $lte: endISO
             }
         }).toArray();
         return reportData;

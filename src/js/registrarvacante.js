@@ -5,24 +5,36 @@ document.addEventListener('DOMContentLoaded', function () {
   const nivelEducativo = document.getElementById('nivel-educativo');
   const materiasSecundariaContainer = document.getElementById('materias-secundaria-container');
   const materiasSecundaria = document.getElementById('materias-secundaria');
-  const horasSecundariaContainer = document.getElementById('horas-secundaria-container'); // Agregar esto
+  const horasSecundariaContainer = document.getElementById('horas-secundaria-container'); 
+  const detalleMateriaContainer = document.getElementById('detalle-materia-container'); // Nuevo campo para especificar el tipo
+  const detalleMateria = document.getElementById('detalle-materia');
 
   // Ocultar el combo de materias al inicio
   materiasSecundariaContainer.style.display = 'none';
-  horasSecundariaContainer.style.display = 'none'; // Agregar esto
+  horasSecundariaContainer.style.display = 'none'; 
+  detalleMateriaContainer.style.display = 'none'; 
 
   nivelEducativo.addEventListener('change', function () {
     if (nivelEducativo.value === 'Secundaria') {
       materiasSecundariaContainer.style.display = 'block';
       horasSecundariaContainer.style.display = 'block'; // Agregar esto
       materiasSecundaria.setAttribute('required', 'required');
+      detalleMateriaContainer.style.display = 'none';
     } else {
       materiasSecundariaContainer.style.display = 'none';
       horasSecundariaContainer.style.display = 'none'; // Agregar esto
       materiasSecundaria.removeAttribute('required');
     }
   });
-
+  materiasSecundaria.addEventListener('change', function () {
+    if (materiasSecundaria.value === 'Artes' || materiasSecundaria.value === 'Tecnologias') {
+      detalleMateriaContainer.style.display = 'block';
+      detalleMateria.setAttribute('required', 'required');
+    } else {
+      detalleMateriaContainer.style.display = 'none';
+      detalleMateria.removeAttribute('required');
+    }
+  });
   const form = document.querySelector('form');
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -30,12 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!form.checkValidity()) {
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
+        title: 'Error..',
         text: 'Por favor, verifica que todos los campos estén correctamente llenados.'
       });
       return;
     }
-    let fechaLocal = new Date();
+    let fechaLocal = new Date().toISOString().split('T')[0];
     const formData = {
       clavePresupuestal: document.getElementById('clave-presupuestal').value,
       municipio: document.getElementById('municipio').value,
@@ -51,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
       estatus: document.getElementById('estatus').value,
       nivelEducativo: document.getElementById('nivel-educativo').value,
       materiaSecundaria: materiasSecundariaContainer.style.display === 'none' ? null : materiasSecundaria.value,
-      horasSecundaria: materiasSecundariaContainer.style.display === 'none' ? null : document.getElementById('horas-secundaria').value, // Nuevo campo
+      horasSecundaria: materiasSecundariaContainer.style.display === 'none' ? null : document.getElementById('horas-secundaria').value, 
+      detalleMateria: detalleMateriaContainer.style.display === 'none' ? null : detalleMateria.value, // Agregar esto
       zonaEconomica: document.getElementById('zona-economica').value,
       tipoContrato: document.querySelector('input[name="tipo-contrato"]:checked').value,
       observaciones: document.getElementById('observaciones').value,
@@ -67,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       form.reset();
       materiasSecundariaContainer.style.display = 'none';
+      detalleMateriaContainer.style.display = 'none';
     } catch (error) {
       Swal.fire({
         icon: 'error',

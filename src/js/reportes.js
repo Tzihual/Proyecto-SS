@@ -1,14 +1,11 @@
 const { ipcRenderer } = require('electron');
 
-
-
-
 document.getElementById('report-form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const startDate = document.getElementById('start-date').value;
-    const endDate = document.getElementById('end-date').value;
-    const today = new Date();
+    const startDate = document.getElementById('fechaInicio').value;
+    const endDate = document.getElementById('fechaFin').value;
+    const today = new Date().toISOString().split('T')[0];
     //.toISOString().split('T')[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
 
     if (new Date(startDate) > new Date(endDate)) {
@@ -44,10 +41,10 @@ document.getElementById('report-form').addEventListener('submit', async function
     }
     
 });
-
 async function fetchReportData(startDate, endDate) {
     return await ipcRenderer.invoke('get-report-data', { startDate, endDate });
 }
+
 
 function displayReport(reportData) {
     const reportResult = document.getElementById('report-result');
@@ -69,6 +66,7 @@ function displayReport(reportData) {
                 <th>Nombre de la escuela</th>
                 <th>Nivel Educativo</th>
                 <th class="materia-column">Materia</th>
+                <th class="detalle-column">Detalle de Materia</th>
                 <th class="horas-column">Horas</th>
                 <th>Tipo de contrato</th>
                 <th>Necesidad del servicio</th>
@@ -84,6 +82,11 @@ function displayReport(reportData) {
                     <td>${vacante.nombreEscuela}</td>
                     <td>${vacante.nivelEducativo}</td>
                      <td class="materia-column">${vacante.nivelEducativo === 'Secundaria' ? vacante.materiaSecundaria || 'N/A' : 'N/A'}</td>
+                     <td class="detalle-column">${
+                        vacante.nivelEducativo === 'Secundaria' && (vacante.materiaSecundaria === 'Artes' || vacante.materiaSecundaria === 'Tecnologias') 
+                        ? vacante.detalleMateria || 'N/A' 
+                        : 'N/A'
+                    }</td> 
                     <td class="horas-column">${vacante.nivelEducativo === 'Secundaria' ? vacante.horasSecundaria || 'N/A' : 'N/A'}</td>
                      <td>${vacante.tipoContrato}</td>
                     <td>${vacante.estatus}</td>
@@ -108,17 +111,16 @@ function displayReport(reportData) {
 document.getElementById('download-format-container').style.display = 'block';
 }
 
-// Cuando se seleccione el nivel educativo en el filtro, mostrar/ocultar columnas relevantes
 document.getElementById('filter-nivel').addEventListener('change', function() {
     const selectedNivel = this.value;
 
     if (selectedNivel === 'Secundaria') {
-        document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
+        document.querySelectorAll('.materia-column, .horas-column, .detalle-column').forEach(column => {
             column.style.display = 'table-cell';
         });
     } else {
-        document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
-            column.style.display = 'none';
+        document.querySelectorAll('.materia-column, .horas-column, .detalle-column').forEach(column => {
+            column.style.display = 'table-cell'; // Siempre se muestran, pero con "N/A"
         });
     }
 
