@@ -149,18 +149,34 @@ document.getElementById('filter-necesidad').addEventListener('change', function(
   });
   
 
-// Filtrar el reporte por nivel educativo
-function filterReport(nivel) {
+// Filtrar el reporte 
+// Función para aplicar filtros combinados
+function applyFilters() {
+    const selectedNivel = document.getElementById('filter-nivel').value;
+    const selectedNecesidad = document.getElementById('filter-necesidad').value;
+
     const rows = document.querySelectorAll('#report-table tbody tr');
+
     rows.forEach(row => {
         const nivelEducativo = row.querySelector('td:nth-child(5)').textContent;
-        if (nivel === 'Todos' || nivelEducativo === nivel) {
+        const necesidadServicio = row.querySelector('td:nth-child(10)').textContent; // Asumiendo que la columna 10 es necesidad
+
+        const matchesNivel = selectedNivel === 'Todos' || nivelEducativo === selectedNivel;
+        const matchesNecesidad = selectedNecesidad === 'Todos' || necesidadServicio === selectedNecesidad;
+
+        // Mostrar la fila solo si cumple ambas condiciones
+        if (matchesNivel && matchesNecesidad) {
             row.style.display = '';
         } else {
             row.style.display = 'none';
         }
     });
 }
+
+// Actualizar eventos para que llamen a la misma función
+document.getElementById('filter-nivel').addEventListener('change', applyFilters);
+document.getElementById('filter-necesidad').addEventListener('change', applyFilters);
+
 
 document.getElementById('download').addEventListener('click', function() {
     const format = document.getElementById('download-format').value;
