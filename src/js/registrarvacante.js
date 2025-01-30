@@ -9,13 +9,23 @@ document.addEventListener('DOMContentLoaded', function () {
   const detalleMateriaContainer = document.getElementById('detalle-materia-container'); // Nuevo campo para especificar el tipo
   const detalleMateria = document.getElementById('detalle-materia');
 
+  const motivoSelect = document.getElementById('motivo');
+  const otroMotivoContainer = document.createElement('div'); // Crear un contenedor para el input de otro motivo
+  otroMotivoContainer.innerHTML = `
+    <label for="otro-motivo">Especifique el motivo</label>
+    <input type="text" id="otro-motivo">
+  `;
+  otroMotivoContainer.style.display = 'none'; // Ocultar al inicio
+  motivoSelect.parentNode.appendChild(otroMotivoContainer); // Agregarlo debajo del select de motivos
+
+
   // Ocultar el combo de materias al inicio
   materiasSecundariaContainer.style.display = 'none';
   horasSecundariaContainer.style.display = 'none'; 
   detalleMateriaContainer.style.display = 'none'; 
 
   nivelEducativo.addEventListener('change', function () {
-    if (nivelEducativo.value === 'Secundaria') {
+    if (nivelEducativo.value === 'Secundaria tecnicas' || nivelEducativo.value === 'Secundaria generales') {
       materiasSecundariaContainer.style.display = 'block';
       horasSecundariaContainer.style.display = 'block'; // Agregar esto
       materiasSecundaria.setAttribute('required', 'required');
@@ -33,6 +43,16 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       detalleMateriaContainer.style.display = 'none';
       detalleMateria.removeAttribute('required');
+    }
+  });
+
+  motivoSelect.addEventListener('change', function () {
+    if (motivoSelect.value === 'alta') { 
+      otroMotivoContainer.style.display = 'block';
+      document.getElementById('otro-motivo').setAttribute('required', 'required');
+    } else {
+      otroMotivoContainer.style.display = 'none';
+      document.getElementById('otro-motivo').removeAttribute('required');
     }
   });
   const form = document.querySelector('form');
@@ -55,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
       localidad: document.getElementById('localidad').value,
       funcion: document.getElementById('funcion').value,
       fechaInicio: document.getElementById('fecha-inicio').value,
-      motivo: document.getElementById('motivo').value,
+      motivo: motivoSelect.value === 'alta' ? otroMotivoContainer.value : motivoSelect.value,
       fechaFin: document.getElementById('fecha-fin').value,
       nombreEscuela: document.getElementById('nombre-escuela').value,
       perfilRequerido: document.getElementById('perfil-requerido').value,
@@ -81,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
       form.reset();
       materiasSecundariaContainer.style.display = 'none';
       detalleMateriaContainer.style.display = 'none';
+      otroMotivoContainer.style.display = 'none';
     } catch (error) {
       Swal.fire({
         icon: 'error',

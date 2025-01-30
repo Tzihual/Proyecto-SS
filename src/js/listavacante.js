@@ -59,6 +59,26 @@ function updatePagination(total, currentPage) {
 
 // Delegación de eventos para manejar dinámicamente los clics en botones dentro de la tabla
 document.addEventListener('DOMContentLoaded', function() {
+    const editMotivoSelect = document.getElementById('edit-motivo');
+    const editOtroMotivoContainer = document.createElement('div'); // Contenedor para "Otro motivo"
+    
+    editOtroMotivoContainer.innerHTML = `
+        <label for="edit-otro-motivo">Especifique el motivo</label>
+        <input type="text" id="edit-otro-motivo">
+    `;
+    editOtroMotivoContainer.style.display = 'none'; // Se oculta al inicio
+    editMotivoSelect.parentNode.appendChild(editOtroMotivoContainer); // Agregar debajo del select
+
+    editMotivoSelect.addEventListener('change', function () {
+        if (editMotivoSelect.value === 'alta') {
+            editOtroMotivoContainer.style.display = 'block';
+            document.getElementById('edit-otro-motivo').setAttribute('required', 'required');
+        } else {
+            editOtroMotivoContainer.style.display = 'none';
+            document.getElementById('edit-otro-motivo').removeAttribute('required');
+        }
+    });
+
     const searchInput = document.getElementById('search-input');
     searchInput.addEventListener('input', filterVacantes);
 
@@ -91,7 +111,7 @@ function filterVacantes() {
 document.getElementById('filter-nivel').addEventListener('change', function() {
     const selectedNivel = this.value;
 
-    if (selectedNivel === 'Secundaria') {
+    if (selectedNivel === 'Secundaria tecnicas' || selectedNivel === 'Secundaria generales') {
         document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
             column.style.display = 'table-cell';
         });
@@ -124,7 +144,7 @@ function filterReport(nivel) {
     );
     renderVacantes(filteredVacantes);
 
-    if (nivel === 'Secundaria') {
+    if (nivel === 'Secundaria tecnicas' || nivel === 'Secundaria generales') {
         document.querySelectorAll('.materia-column').forEach(column => {
             column.style.display = 'table-cell';
         });
@@ -140,7 +160,7 @@ function renderVacantes(vacantes) {
 
     vacantes.forEach(vacante => {
         const tr = document.createElement('tr');
-        let materiaColumn = vacante.nivelEducativo === 'Secundaria' ? `<td>${vacante.materiaSecundaria || 'N/A'}</td>` : '<td>N/A</td>';
+        let materiaColumn = vacante.nivelEducativo === 'Secundaria tecnicas' || vacante.nivelEducativo === 'Secundaria generales' ? `<td>${vacante.materiaSecundaria || 'N/A'}</td>` : '<td>N/A</td>';
 
         tr.innerHTML = `
             <td>${vacante.clavePresupuestal}</td>
@@ -163,7 +183,7 @@ document.getElementById('edit-nivel-educativo').addEventListener('change', funct
     const selectedNivel = this.value;
     const secundariaFields = document.getElementById('secundaria-fields');
 
-    if (selectedNivel === 'Secundaria') {
+    if (selectedNivel === 'Secundaria tecnica' || selectedNivel === 'Secundaria generales') {
         secundariaFields.style.display = 'block';
         document.getElementById('edit-materias-secundaria').setAttribute('required', 'required');
         document.getElementById('edit-horas-secundaria').setAttribute('required', 'required');
@@ -197,9 +217,29 @@ async function openEditModal(id) {
         document.getElementById('edit-observaciones').value = vacante.observaciones;
         document.getElementById('edit-id').value = id;
         document.getElementById('edit-nivel-educativo').value = vacante.nivelEducativo;
+        const editMotivoSelect = document.getElementById('edit-motivo');
+        const editOtroMotivoInput = document.getElementById('edit-otro-motivo');
+        const editOtroMotivoContainer = document.getElementById('edit-otro-motivo-container');
+
+        const motivosPredefinidos = [
+            "11-41", "11-42", "11-43", "11-44", "11-48", "11-51", "11-52",
+            "11-53", "06-31", "06-32", "06-33", "06-34", "06-75", "07-35", "07-37"
+        ];
+
+        if (!motivosPredefinidos.includes(vacante.motivo)) {
+            editMotivoSelect.value = 'alta'; // Marcar "Otro"
+            editOtroMotivoContainer.style.display = 'block';
+            editOtroMotivoInput.value = vacante.motivo; // Cargar motivo personalizado
+        } else {
+            editMotivoSelect.value = vacante.motivo;
+            editOtroMotivoContainer.style.display = 'none';
+            editOtroMotivoInput.value = '';
+        }
+
+        document.getElementById('editModal').style.display = 'block';
 
         const secundariaFields = document.getElementById('secundaria-fields');
-        if (vacante.nivelEducativo === 'Secundaria') {
+        if (vacante.nivelEducativo === 'Secundaria tecnica' || vacante.nivelEducativo === 'Secundaria generales') {
             secundariaFields.style.display = 'block';
             document.getElementById('edit-materias-secundaria').value = vacante.materiaSecundaria || '';
             document.getElementById('edit-horas-secundaria').value = vacante.horasSecundaria || '';
@@ -241,6 +281,10 @@ function closeEditModal() {
 
 async function saveEdit() {
     const id = document.getElementById('edit-id').value;
+
+    const editMotivoSelect = document.getElementById('edit-motivo');
+    const editOtroMotivoInput = document.getElementById('edit-otro-motivo');
+
     const updatedVacante = {
         clavePresupuestal: document.getElementById('edit-clave-presupuestal').value,
         municipio: document.getElementById('edit-municipio').value,
@@ -248,8 +292,7 @@ async function saveEdit() {
         localidad: document.getElementById('edit-localidad').value,
         funcion: document.getElementById('edit-funcion').value,
         fechaInicio: document.getElementById('edit-fecha-inicio').value,
-        motivo: document.getElementById('edit-motivo').value,
-        fechaFin: document.getElementById('edit-fecha-fin').value,
+        motivo: editMotivoSelect.value === 'alta' ? editOtroMotivoInput.value : editMotivoSelect.value,fechaFin: document.getElementById('edit-fecha-fin').value,
         nombreEscuela: document.getElementById('edit-nombre-escuela').value,
         perfilRequerido: document.getElementById('edit-perfil-requerido').value,
         turno: document.getElementById('edit-turno').value,
@@ -260,7 +303,7 @@ async function saveEdit() {
         observaciones: document.getElementById('edit-observaciones').value
     };
 
-    if (document.getElementById('edit-nivel-educativo').value === 'Secundaria') {
+    if (document.getElementById('edit-nivel-educativo').value === 'Secundaria tecnicas' || document.getElementById('edit-nivel-educativo').value === 'Secundaria generales') {
         updatedVacante.materiaSecundaria = document.getElementById('edit-materias-secundaria').value;
         updatedVacante.horasSecundaria = document.getElementById('edit-horas-secundaria').value;
 

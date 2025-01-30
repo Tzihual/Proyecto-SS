@@ -16,16 +16,7 @@ document.getElementById('report-form').addEventListener('submit', async function
         });
         return;
     }
-    
-
-   /* if (endDate > today) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'La fecha de fin no puede ser posterior al día de hoy',
-        });
-        return;
-    }*/
+   
     
 
     try {
@@ -81,13 +72,13 @@ function displayReport(reportData) {
                     <td>${vacante.municipio}</td>
                     <td>${vacante.nombreEscuela}</td>
                     <td>${vacante.nivelEducativo}</td>
-                     <td class="materia-column">${vacante.nivelEducativo === 'Secundaria' ? vacante.materiaSecundaria || 'N/A' : 'N/A'}</td>
+                     <td class="materia-column">${vacante.nivelEducativo === 'Secundaria tecnicas'|| vacante.nivelEducativo === 'Secundaria generales' ? vacante.materiaSecundaria || 'N/A' : 'N/A'}</td>
                      <td class="detalle-column">${
-                        vacante.nivelEducativo === 'Secundaria' && (vacante.materiaSecundaria === 'Artes' || vacante.materiaSecundaria === 'Tecnologias') 
+                        vacante.nivelEducativo === 'Secundaria tecnicas' || vacante.nivelEducativo === 'Secundaria generales'  && (vacante.materiaSecundaria === 'Artes' || vacante.materiaSecundaria === 'Tecnologias') 
                         ? vacante.detalleMateria || 'N/A' 
                         : 'N/A'
                     }</td> 
-                    <td class="horas-column">${vacante.nivelEducativo === 'Secundaria' ? vacante.horasSecundaria || 'N/A' : 'N/A'}</td>
+                    <td class="horas-column">${vacante.nivelEducativo === 'Secundaria técnicas' || vacante.nivelEducativo === 'Secundaria generales' ? vacante.horasSecundaria || 'N/A' : 'N/A'}</td>
                      <td>${vacante.tipoContrato}</td>
                     <td>${vacante.estatus}</td>
                     <td>${vacante.observaciones}</td>
