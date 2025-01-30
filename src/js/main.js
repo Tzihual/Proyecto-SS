@@ -49,19 +49,55 @@ ipcMain.handle('add-vacancy', async (event, formData) => {
 });
 
 
-ipcMain.handle('get-all-vacantes', async () => {
+ipcMain.handle('get-paginated-vacantes', async (event, { page = 1, limit = 10, filter = {} }) => {
     try {
         const db = await connectDB();
-        const vacantes = await db.collection('vacante').find().toArray();
-        return vacantes.map(vacante => ({
-            ...vacante,
-            _id: vacante._id.toString()
-        }));
+        const skip = (page - 1) * limit;
+
+        // Construimos el filtro dinámico según lo que envíe el frontend
+        let query = {};
+
+        if (filter.nivelEducativo && filter.nivelEducativo !== "Todos") {
+            query.nivelEducativo = filter.nivelEducativo;
+        }
+
+        if (filter.tipoContrato && filter.tipoContrato !== "Todos") {
+            query.tipoContrato = filter.tipoContrato;
+        }
+
+        if (filter.searchText) {
+            const regex = new RegExp(filter.searchText, "i"); // Insensitive search
+            query.$or = [
+                { clavePresupuestal: regex },
+                { claveCT: regex },
+                { municipio: regex },
+                { nombreEscuela: regex },
+                { nivelEducativo: regex }
+            ];
+        }
+
+        // Ejecutamos la consulta con el filtro dinámico
+        const vacantes = await db.collection('vacante')
+            .find(query)
+            .skip(skip)
+            .limit(limit)
+            .toArray();
+
+        const total = await db.collection('vacante').countDocuments(query);
+
+        return {
+            vacantes: vacantes.map(vacante => ({
+                ...vacante,
+                _id: vacante._id.toString()
+            })),
+            total
+        };
     } catch (error) {
-        console.error('Error al obtener todas las vacantes:', error);
+        console.error('Error al obtener vacantes con filtro:', error);
         throw error;
     }
 });
+
 
 ipcMain.handle('get-vacante', async (event, id) => {
     try {

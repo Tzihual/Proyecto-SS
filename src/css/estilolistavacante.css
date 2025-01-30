@@ -291,4 +291,28 @@ table td button {
   height: 20px;
   border: none;
 }
+.pagination-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination-btn {
+  background-color: #A19595;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination-btn:hover {
+  background-color: #888;
+}
+
+.pagination-info {
+  font-size: 16px;
+  margin: 0 10px;
+}
+
 

@@ -1,16 +1,61 @@
 const { ipcRenderer } = require('electron');
 
-let allVacantes = [];
+//let allVacantes = [];
 
-async function fetchVacantes() {
+let currentPage = 1;
+const limit = 10;
+
+async function fetchVacantes(page = 1) {
     try {
-        const vacantes = await ipcRenderer.invoke('get-all-vacantes');
-        allVacantes = vacantes;  // Almacenar globalmente para búsqueda
-        renderVacantes(vacantes);
+        const filter = {
+            nivelEducativo: document.getElementById('filter-nivel')?.value || "Todos",
+            municipio: document.getElementById('filter-municipio')?.value || "Todos",
+            tipoContrato: document.getElementById('filter-tipo-contrato')?.value || "Todos",
+            searchText: document.getElementById('search-input')?.value || ""
+        };
+
+        const response = await ipcRenderer.invoke('get-paginated-vacantes', { page, limit, filter });
+        allVacantes = response.vacantes;
+        renderVacantes(allVacantes);
+        updatePagination(response.total, page);
+        currentPage = page;
     } catch (error) {
         console.error('Error al obtener vacantes:', error);
     }
 }
+
+
+function updatePagination(total, currentPage) {
+    const totalPages = Math.ceil(total / limit);
+    const paginationContainer = document.getElementById('pagination');
+
+    paginationContainer.innerHTML = ''; // Limpiar contenido previo
+
+    console.log("Total Pages:", totalPages, "Current Page:", currentPage);
+
+    if (currentPage > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Anterior';
+        prevButton.classList.add('pagination-btn');
+        prevButton.onclick = () => fetchVacantes(currentPage - 1);
+        paginationContainer.appendChild(prevButton);
+    }
+
+    const pageInfo = document.createElement('span');
+    pageInfo.textContent = ` Página ${currentPage} de ${totalPages} `;
+    pageInfo.classList.add('pagination-info');
+    paginationContainer.appendChild(pageInfo);
+
+    if (currentPage < totalPages) {
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Siguiente';
+        nextButton.classList.add('pagination-btn');
+        nextButton.onclick = () => fetchVacantes(currentPage + 1);
+        paginationContainer.appendChild(nextButton);
+    }
+}
+
+
 
 // Delegación de eventos para manejar dinámicamente los clics en botones dentro de la tabla
 document.addEventListener('DOMContentLoaded', function() {
@@ -29,6 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     fetchVacantes();
+
+    document.getElementById('filter-nivel').addEventListener('change', () => fetchVacantes(1));
 });
 
 function filterVacantes() {
