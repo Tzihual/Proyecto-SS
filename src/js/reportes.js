@@ -37,11 +37,24 @@ async function fetchReportData(startDate, endDate) {
 }
 
 
-function displayReport(reportData) {
-    const reportResult = document.getElementById('report-result');
-    reportResult.innerHTML = ''; // Limpia resultados anteriores
+const rowsPerPage = 10; // Cantidad de filas por página
+let currentPage = 1;
+let totalPages = 1;
+let allReportData = []; // Guardará todas las vacantes
 
-    if (reportData.length === 0) {
+function displayReport(reportData) {
+    allReportData = reportData; // Guardar todos los datos en una variable global
+    totalPages = Math.ceil(allReportData.length / rowsPerPage);
+    currentPage = 1; // Reiniciar página a la primera
+    renderTable();
+    renderPaginationControls();
+}
+
+function renderTable() {
+    const reportResult = document.getElementById('report-result');
+    reportResult.innerHTML = ''; // Limpiar resultados anteriores
+
+    if (allReportData.length === 0) {
         reportResult.innerHTML = '<p>No se encontraron plazas vacantes en el rango de fechas seleccionado.</p>';
         return;
     }
@@ -65,34 +78,28 @@ function displayReport(reportData) {
             </tr>
         </thead>
         <tbody>
-            ${reportData.map(vacante => `
-                <tr>
-                    <td>${vacante.clavePresupuestal}</td>
-                    <td>${vacante.claveCT}</td>
-                    <td>${vacante.municipio}</td>
-                    <td>${vacante.nombreEscuela}</td>
-                    <td>${vacante.nivelEducativo}</td>
-                     <td class="materia-column">${vacante.nivelEducativo === 'Secundaria tecnicas'|| vacante.nivelEducativo === 'Secundaria generales' ? vacante.materiaSecundaria || 'N/A' : 'N/A'}</td>
-                     <td class="detalle-column">${
-                        vacante.nivelEducativo === 'Secundaria tecnicas' || vacante.nivelEducativo === 'Secundaria generales'  && (vacante.materiaSecundaria === 'Artes' || vacante.materiaSecundaria === 'Tecnologias') 
-                        ? vacante.detalleMateria || 'N/A' 
-                        : 'N/A'
-                    }</td> 
-                    <td class="horas-column">${vacante.nivelEducativo === 'Secundaria técnicas' || vacante.nivelEducativo === 'Secundaria generales' ? vacante.horasSecundaria || 'N/A' : 'N/A'}</td>
-                     <td>${vacante.tipoContrato}</td>
-                    <td>${vacante.estatus}</td>
-                    <td>${vacante.observaciones}</td>
-                </tr>
-            `).join('')}
+            ${allReportData
+                .slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage) // Obtener solo las filas de la página actual
+                .map(vacante => `
+                    <tr>
+                        <td>${vacante.clavePresupuestal}</td>
+                        <td>${vacante.claveCT}</td>
+                        <td>${vacante.municipio}</td>
+                        <td>${vacante.nombreEscuela}</td>
+                        <td>${vacante.nivelEducativo}</td>
+                        <td class="materia-column">${(vacante.nivelEducativo === 'Secundaria tecnicas' || vacante.nivelEducativo === 'Secundaria generales') ? vacante.materiaSecundaria || 'N/A' : 'N/A'}</td>
+                        <td class="detalle-column">${(vacante.nivelEducativo === 'Secundaria tecnicas' || vacante.nivelEducativo === 'Secundaria generales') && (vacante.materiaSecundaria === 'Artes' || vacante.materiaSecundaria === 'Tecnologias') ? vacante.detalleMateria || 'N/A' : 'N/A'}</td>
+                        <td class="horas-column">${vacante.nivelEducativo === 'Secundaria técnicas' || vacante.nivelEducativo === 'Secundaria generales' ? vacante.horasSecundaria || 'N/A' : 'N/A'}</td>
+                        <td>${vacante.tipoContrato}</td>
+                        <td>${vacante.estatus}</td>
+                        <td>${vacante.observaciones}</td>
+                    </tr>
+                `).join('')}
         </tbody>
     `;
+
     reportResult.appendChild(table);
-/*
-    // Inicialmente ocultar las columnas de materia y horas si no son relevantes
-    document.querySelectorAll('.materia-column, .horas-column').forEach(column => {
-        column.style.display = 'none';
-    });
-*/
+
     // Mostrar el botón de descargar PDF y el filtro de nivel educativo
     document.getElementById('filter-container').style.display = 'block';
     document.getElementById('download').style.display = 'block';
@@ -105,7 +112,7 @@ document.getElementById('download-format-container').style.display = 'block';
 document.getElementById('filter-nivel').addEventListener('change', function() {
     const selectedNivel = this.value;
 
-    if (selectedNivel === 'Secundaria') {
+    if (selectedNivel === 'Secundaria tecnicas' || selectedNivel === 'Secundaria generales') {
         document.querySelectorAll('.materia-column, .horas-column, .detalle-column').forEach(column => {
             column.style.display = 'table-cell';
         });
@@ -139,30 +146,73 @@ document.getElementById('filter-necesidad').addEventListener('change', function(
     }
   });
   
+  function renderPaginationControls() {
+    const paginationControls = document.getElementById('pagination-controls');
+    paginationControls.innerHTML = ''; // Limpiar controles previos
 
-// Filtrar el reporte 
+    if (totalPages <= 1) return; // Si solo hay una página, no mostrar controles
+
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Anterior';
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+            renderPaginationControls();
+        }
+    });
+
+    const pageInfo = document.createElement('span');
+    pageInfo.textContent = ` Página ${currentPage} de ${totalPages} `;
+
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Siguiente';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+            renderPaginationControls();
+        }
+    });
+
+    paginationControls.appendChild(prevButton);
+    paginationControls.appendChild(pageInfo);
+    paginationControls.appendChild(nextButton);
+}
+
+
 // Función para aplicar filtros combinados
 function applyFilters() {
     const selectedNivel = document.getElementById('filter-nivel').value;
     const selectedNecesidad = document.getElementById('filter-necesidad').value;
-
+    
     const rows = document.querySelectorAll('#report-table tbody tr');
 
     rows.forEach(row => {
-        const nivelEducativo = row.querySelector('td:nth-child(5)').textContent;
-        const necesidadServicio = row.querySelector('td:nth-child(10)').textContent; // Asumiendo que la columna 10 es necesidad
+        const nivelEducativo = row.querySelector('td:nth-child(5)')?.textContent.trim(); // Obtener texto del nivel educativo
+        const necesidadServicio = row.querySelector('td:nth-child(10)')?.textContent.trim(); // Obtener texto de necesidad
 
-        const matchesNivel = selectedNivel === 'Todos' || nivelEducativo === selectedNivel;
-        const matchesNecesidad = selectedNecesidad === 'Todos' || necesidadServicio === selectedNecesidad;
+        const matchesNivel = selectedNivel === 'Todos' || (nivelEducativo && nivelEducativo === selectedNivel);
+        const matchesNecesidad = selectedNecesidad === 'Todos' || (necesidadServicio && necesidadServicio === selectedNecesidad);
 
-        // Mostrar la fila solo si cumple ambas condiciones
-        if (matchesNivel && matchesNecesidad) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
+        // Solo muestra la fila si ambas condiciones se cumplen
+        row.style.display = (matchesNivel && matchesNecesidad) ? '' : 'none';
     });
+
+
+    totalPages = Math.ceil(filteredData.length / rowsPerPage);
+    currentPage = 1; // Reiniciar a la primera página
+    allReportData = filteredData;
+    renderTable();
+    renderPaginationControls();
 }
+
+// Agregar eventos para que se actualice en tiempo real
+document.getElementById('filter-nivel').addEventListener('change', applyFilters);
+document.getElementById('filter-necesidad').addEventListener('change', applyFilters);
+
 
 // Actualizar eventos para que llamen a la misma función
 document.getElementById('filter-nivel').addEventListener('change', applyFilters);

@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   motivoSelect.addEventListener('change', function () {
-    if (motivoSelect.value === 'alta') { 
+    if (motivoSelect.value === 'otro') { 
       otroMotivoContainer.style.display = 'block';
       document.getElementById('otro-motivo').setAttribute('required', 'required');
     } else {
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
       localidad: document.getElementById('localidad').value,
       funcion: document.getElementById('funcion').value,
       fechaInicio: document.getElementById('fecha-inicio').value,
-      motivo: motivoSelect.value === 'alta' ? otroMotivoContainer.value : motivoSelect.value,
+      motivo: motivoSelect.value === 'otro' ? otroMotivoContainer.value : motivoSelect.value,
       fechaFin: document.getElementById('fecha-fin').value,
       nombreEscuela: document.getElementById('nombre-escuela').value,
       perfilRequerido: document.getElementById('perfil-requerido').value,

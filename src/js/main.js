@@ -103,6 +103,8 @@ ipcMain.handle('get-vacante', async (event, id) => {
     try {
         const db = await connectDB();
         const vacante = await db.collection('vacante').findOne({ _id: new ObjectId(id) });
+
+        console.log('Vacante obtenida:', vacante);
         return vacante;
     } catch (error) {
         console.error('Error al obtener la vacante:', error);

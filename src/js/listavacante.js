@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     editMotivoSelect.parentNode.appendChild(editOtroMotivoContainer); // Agregar debajo del select
 
     editMotivoSelect.addEventListener('change', function () {
-        if (editMotivoSelect.value === 'alta') {
+        if (editMotivoSelect.value === 'otro') {
             editOtroMotivoContainer.style.display = 'block';
             document.getElementById('edit-otro-motivo').setAttribute('required', 'required');
         } else {
@@ -222,20 +222,23 @@ async function openEditModal(id) {
         const editOtroMotivoContainer = document.getElementById('edit-otro-motivo-container');
 
         const motivosPredefinidos = [
-            "11-41", "11-42", "11-43", "11-44", "11-48", "11-51", "11-52",
-            "11-53", "06-31", "06-32", "06-33", "06-34", "06-75", "07-35", "07-37"
+            "11-41 (Licencia por asuntos particulares)", "11-42 (Licencia por pasar a otro empleo)", "11-43 (Licencia por comisión sindical ó elección popular)", "11-44 (Licencia por Gravidez)", "11-48 (Licencia Prepensionaria)", "11-51 (Prórroga de Licencia por asuntos particulares)", "11-52 (Prórroga de Licencia por pasar a otro empleo)",
+            "11-53 (Prórroga de Licencia por comisión sindical ó elección popular)","Licencia por acuerdo presidencial No. 754","12-61 (Reanudación de Labores de una Prorroga ó Licencia por asuntos particulares)","12-62 (Reanudación de Labores de una Prórroga o Licencia por pasar a otro empleo)","12-63 (Reanudación de Labores de una Prórroga o Licencia por comisión sindical o elección popular)", "06-31 (baja por Defunción)", "06-32 (baja por renuncia)", "06-33 (baja por jubilación)", "06-34 (baja por Abandono de Empleo)", "06-75 (baja por incapacidad del ISSSTE)", "07-35 (baja por término de nombramiento)", "07-37 (baja por pasar a otro empleo)", "otro"
         ];
-
-        if (!motivosPredefinidos.includes(vacante.motivo)) {
-            editMotivoSelect.value = 'alta'; // Marcar "Otro"
+        
+        if (!vacante.motivo) {
+            editMotivoSelect.value = ''; // Dejarlo en "Seleccione un motivo"
+            editOtroMotivoContainer.style.display = 'none';
+            editOtroMotivoInput.value = ''; 
+        } else if (motivosPredefinidos.includes(vacante.motivo)) {
+            editMotivoSelect.value = vacante.motivo; // Seleccionar motivo si está en la lista
+            editOtroMotivoContainer.style.display = vacante.motivo === 'otro' ? 'block' : 'none';
+            editOtroMotivoInput.value = vacante.motivo === 'otro' ? vacante.motivo : ''; 
+        } else {
+            editMotivoSelect.value = 'otro'; // Si no está en la lista, marcar "Otro"
             editOtroMotivoContainer.style.display = 'block';
             editOtroMotivoInput.value = vacante.motivo; // Cargar motivo personalizado
-        } else {
-            editMotivoSelect.value = vacante.motivo;
-            editOtroMotivoContainer.style.display = 'none';
-            editOtroMotivoInput.value = '';
         }
-
         document.getElementById('editModal').style.display = 'block';
 
         const secundariaFields = document.getElementById('secundaria-fields');
@@ -292,7 +295,7 @@ async function saveEdit() {
         localidad: document.getElementById('edit-localidad').value,
         funcion: document.getElementById('edit-funcion').value,
         fechaInicio: document.getElementById('edit-fecha-inicio').value,
-        motivo: editMotivoSelect.value === 'alta' ? editOtroMotivoInput.value : editMotivoSelect.value,fechaFin: document.getElementById('edit-fecha-fin').value,
+        motivo: editMotivoSelect.value === 'otro' ? editOtroMotivoInput.value : editMotivoSelect.value,fechaFin: document.getElementById('edit-fecha-fin').value,
         nombreEscuela: document.getElementById('edit-nombre-escuela').value,
         perfilRequerido: document.getElementById('edit-perfil-requerido').value,
         turno: document.getElementById('edit-turno').value,
